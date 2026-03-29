@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🌸 Flower Match</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/pieces.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+  <div id="app">
+    <header id="header">
+      <div id="title">🌸 Flower Match</div>
+      <div id="mode-buttons">
+        <button id="btn-free" class="mode-btn active">フリー</button>
+        <button id="btn-challenge" class="mode-btn">チャレンジ</button>
+      </div>
+      <div id="audio-controls">
+        <!-- Phase 2 -->
+      </div>
+    </header>
+
+    <main id="main-content">
+      <div id="score-bar">
+        <div id="score-info">
+          <span class="score-label">スコア</span>
+          <span id="score-display">0</span>
+        </div>
+        <div id="chain-display" class="hidden"></div>
+        <div id="hiscore-info">
+          <span class="score-label">ハイスコア</span>
+          <span id="hi-score-display">0</span>
+        </div>
+      </div>
+
+      <div id="game-area">
+        <div id="goal-panel" class="hidden">
+          <div id="goal-title">目標</div>
+          <div id="goal-list"></div>
+        </div>
+
+        <div id="board-wrapper">
+          <div id="board-container">
+            <!-- Pieces are placed here dynamically -->
+          </div>
+          <div id="shuffle-overlay" class="hidden">
+            <span>シャッフル中…</span>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/score.js"></script>
+  <script src="js/effects.js"></script>
+  <script src="js/board.js"></script>
+  <script src="js/input.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

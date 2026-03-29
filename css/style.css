@@ -1,0 +1,330 @@
+/* ===== CSS Variables ===== */
+:root {
+  --color-bg-start: #e8f5e9;
+  --color-bg-end: #fff9e6;
+  --color-header-bg: rgba(255, 255, 255, 0.85);
+  --color-board-bg: rgba(255, 255, 255, 0.6);
+  --color-board-border: rgba(100, 160, 100, 0.3);
+  --color-cell-bg: rgba(255, 255, 255, 0.5);
+  --color-cell-border: rgba(150, 200, 150, 0.25);
+  --color-btn-active: #4CAF50;
+  --color-btn-text-active: white;
+  --color-btn-normal: rgba(255,255,255,0.8);
+  --color-btn-text: #555;
+  --color-score: #3a6b3a;
+  --font-main: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif;
+  --cell-size: 64px;
+  --board-size: calc(var(--cell-size) * 8);
+}
+
+/* ===== Reset & Base ===== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: var(--font-main);
+  background: linear-gradient(135deg, var(--color-bg-start) 0%, var(--color-bg-end) 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #333;
+}
+
+/* ===== App Layout ===== */
+#app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 900px;
+  min-height: 100vh;
+  padding: 0 16px 16px;
+}
+
+/* ===== Header ===== */
+#header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 16px;
+  background: var(--color-header-bg);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(150, 200, 150, 0.3);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+#title {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: #2e7d32;
+  flex-shrink: 0;
+  letter-spacing: 0.02em;
+}
+
+#mode-buttons {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.mode-btn {
+  font-family: var(--font-main);
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 6px 14px;
+  border: 2px solid #ccc;
+  border-radius: 20px;
+  cursor: pointer;
+  background: var(--color-btn-normal);
+  color: var(--color-btn-text);
+  transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.1s;
+  user-select: none;
+}
+
+.mode-btn:hover {
+  border-color: #aaa;
+  background: white;
+}
+
+.mode-btn.active {
+  background: var(--color-btn-active);
+  color: var(--color-btn-text-active);
+  border-color: #388e3c;
+}
+
+.mode-btn:active {
+  transform: scale(0.95);
+}
+
+#audio-controls {
+  margin-left: auto;
+}
+
+/* ===== Score Bar ===== */
+#score-bar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  margin-top: 8px;
+}
+
+#score-info,
+#hiscore-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.score-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #7aad7a;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+#score-display,
+#hi-score-display {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: var(--color-score);
+  letter-spacing: 0.02em;
+  line-height: 1;
+  min-width: 80px;
+  text-align: center;
+}
+
+#chain-display {
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: #e67e22;
+  background: rgba(230, 126, 34, 0.12);
+  padding: 4px 14px;
+  border-radius: 16px;
+  transition: opacity 0.3s;
+}
+
+#chain-display.hidden {
+  visibility: hidden;
+  opacity: 0;
+}
+
+/* ===== Game Area ===== */
+#game-area {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+  flex: 1;
+}
+
+/* ===== Goal Panel (Challenge Mode) ===== */
+#goal-panel {
+  background: rgba(255, 255, 255, 0.75);
+  border-radius: 16px;
+  padding: 14px 12px;
+  min-width: 120px;
+  border: 1px solid rgba(150, 200, 150, 0.35);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+#goal-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #7aad7a;
+  text-align: center;
+  margin-bottom: 10px;
+  letter-spacing: 0.08em;
+}
+
+.goal-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 4px;
+  border-radius: 8px;
+}
+
+.goal-item.done {
+  opacity: 0.45;
+}
+
+.goal-flower-icon {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+}
+
+.goal-count {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #333;
+  min-width: 28px;
+  text-align: right;
+}
+
+.goal-check {
+  font-size: 1.2rem;
+  color: #4CAF50;
+}
+
+/* ===== Board Wrapper ===== */
+#board-wrapper {
+  position: relative;
+  flex-shrink: 0;
+}
+
+#board-container {
+  position: relative;
+  width: var(--board-size);
+  height: var(--board-size);
+  background: var(--color-board-bg);
+  border-radius: 12px;
+  border: 2px solid var(--color-board-border);
+  box-shadow: 0 4px 24px rgba(0, 80, 0, 0.1), inset 0 1px 0 rgba(255,255,255,0.8);
+  overflow: hidden;
+  cursor: default;
+  user-select: none;
+}
+
+/* Grid lines */
+#board-container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(150,200,150,0.18) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(150,200,150,0.18) 1px, transparent 1px);
+  background-size: var(--cell-size) var(--cell-size);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ===== Shuffle Overlay ===== */
+#shuffle-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #4CAF50;
+  border-radius: 10px;
+  z-index: 200;
+  animation: fadeIn 0.2s ease-out;
+}
+
+#shuffle-overlay.hidden {
+  display: none;
+}
+
+/* ===== Utility ===== */
+.hidden {
+  display: none !important;
+}
+
+/* ===== Score Popup ===== */
+.score-popup {
+  position: fixed;
+  pointer-events: none;
+  font-family: var(--font-main);
+  font-weight: 900;
+  font-size: 1.1rem;
+  color: #ff8c00;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  z-index: 1000;
+  animation: scorePopup 0.8s ease-out forwards;
+  white-space: nowrap;
+}
+
+@keyframes scorePopup {
+  0%   { opacity: 1; transform: translateY(0) scale(1); }
+  60%  { opacity: 1; transform: translateY(-30px) scale(1.1); }
+  100% { opacity: 0; transform: translateY(-55px) scale(0.9); }
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 560px) {
+  :root {
+    --cell-size: 40px;
+  }
+
+  #title {
+    font-size: 1rem;
+  }
+
+  #score-display,
+  #hi-score-display {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 700px) and (min-width: 561px) {
+  :root {
+    --cell-size: 52px;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}

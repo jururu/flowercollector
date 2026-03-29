@@ -1,0 +1,61 @@
+/* ===== Piece Base ===== */
+.piece {
+  position: absolute;
+  width: var(--cell-size);
+  height: var(--cell-size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  z-index: 10;
+  will-change: transform, left, top;
+  /* No default transition — set dynamically per animation type */
+}
+
+.piece:active {
+  cursor: grabbing;
+}
+
+.piece svg {
+  width: calc(var(--cell-size) * 0.82);
+  height: calc(var(--cell-size) * 0.82);
+  display: block;
+  pointer-events: none;
+  filter: drop-shadow(0 2px 3px rgba(0,0,0,0.15));
+  transition: transform 0.12s ease-out;
+}
+
+/* ===== Selected state ===== */
+.piece.selected {
+  z-index: 20;
+}
+
+.piece.selected svg {
+  transform: scale(1.12);
+  filter:
+    drop-shadow(0 2px 3px rgba(0,0,0,0.15))
+    drop-shadow(0 0 8px rgba(255, 220, 50, 0.9))
+    drop-shadow(0 0 4px rgba(255, 200, 0, 0.7));
+}
+
+/* ===== Drag state ===== */
+.piece.dragging {
+  z-index: 30;
+  cursor: grabbing;
+}
+
+.piece.dragging svg {
+  transform: scale(1.15);
+  filter:
+    drop-shadow(0 4px 8px rgba(0,0,0,0.25))
+    drop-shadow(0 0 6px rgba(255, 220, 50, 0.6));
+}
+
+/* ===== Flower type colors (used for particles etc.) ===== */
+.flower-0 { --piece-color: #E74C3C; } /* Tulip    */
+.flower-1 { --piece-color: #F1C40F; } /* Sunflower*/
+.flower-2 { --piece-color: #E91E8F; } /* Rose     */
+.flower-3 { --piece-color: #9B59B6; } /* Violet   */
+.flower-4 { --piece-color: #27AE60; } /* Clover   */
+.flower-5 { --piece-color: #3498DB; } /* MornGlory*/
+.flower-6 { --piece-color: #E67E22; } /* Dandelion*/
