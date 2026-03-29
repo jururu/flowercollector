@@ -16,7 +16,7 @@
     <header id="header">
       <div id="title">🌸 Flower Match</div>
       <div id="mode-buttons">
-        <button id="btn-free" class="mode-btn active">フリー</button>
+        <button id="btn-free"      class="mode-btn active">フリー</button>
         <button id="btn-challenge" class="mode-btn">チャレンジ</button>
       </div>
       <div id="audio-controls">
@@ -24,46 +24,94 @@
         <div class="volume-wrap">
           <span class="vol-label">SE</span>
           <input type="range" id="se-volume" class="vol-slider"
-                 min="0" max="1" step="0.05" value="0.5"
-                 aria-label="SE音量">
+                 min="0" max="1" step="0.05" value="0.5" aria-label="SE音量">
         </div>
       </div>
     </header>
 
     <main id="main-content">
+
+      <!-- ===== Timer bar (challenge only) ===== -->
+      <div id="timer-wrap" class="hidden">
+        <div id="timer-bar-bg">
+          <div id="timer-bar-fill"></div>
+        </div>
+      </div>
+
+      <!-- ===== Score / stage bar ===== -->
       <div id="score-bar">
         <div id="score-info">
           <span class="score-label">スコア</span>
           <span id="score-display">0</span>
         </div>
+
+        <!-- Stage info — challenge only -->
+        <div id="stage-info" class="hidden">
+          <span class="score-label">ステージ</span>
+          <span id="stage-display">1</span>
+        </div>
+
         <div id="chain-display" class="hidden"></div>
+
         <div id="hiscore-info">
           <span class="score-label">ハイスコア</span>
           <span id="hi-score-display">0</span>
         </div>
       </div>
 
+      <!-- ===== Game area ===== -->
       <div id="game-area">
+
+        <!-- Goal panel (challenge only) -->
         <div id="goal-panel" class="hidden">
           <div id="goal-title">目標</div>
           <div id="goal-list"></div>
+          <div id="hi-stage-wrap" class="hidden">
+            <span class="score-label">最高</span>
+            <span id="hi-stage-display">0</span>
+          </div>
         </div>
 
+        <!-- Board -->
         <div id="board-wrapper">
-          <div id="board-container">
-            <!-- Pieces are placed here dynamically -->
-          </div>
+          <div id="board-container"></div>
+
+          <!-- Shuffle notice -->
           <div id="shuffle-overlay" class="hidden">
             <span>シャッフル中…</span>
           </div>
+
+          <!-- Stage clear overlay (inside board) -->
+          <div id="stageclear-overlay" class="hidden">
+            <div id="stageclear-content">
+              <div class="overlay-title">Stage Clear!</div>
+              <div id="clear-stage-text"></div>
+            </div>
+          </div>
         </div>
-      </div>
+      </div><!-- /game-area -->
+
     </main>
+  </div><!-- /app -->
+
+  <!-- ===== Game-over overlay (full screen) ===== -->
+  <div id="gameover-overlay" class="hidden">
+    <div id="gameover-content">
+      <div id="gameover-title">Time's Up</div>
+      <div id="gameover-body">
+        <p>到達ステージ: <strong id="result-stage">1</strong></p>
+        <p>スコア: <strong id="result-score">0</strong></p>
+        <p id="result-hi-note"></p>
+      </div>
+      <button id="btn-retry" class="mode-btn active">もう一度</button>
+    </div>
   </div>
 
   <script src="js/audio.js"></script>
   <script src="js/score.js"></script>
   <script src="js/effects.js"></script>
+  <script src="js/timer.js"></script>
+  <script src="js/stages.js"></script>
   <script src="js/board.js"></script>
   <script src="js/input.js"></script>
   <script src="js/main.js"></script>
