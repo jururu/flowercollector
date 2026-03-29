@@ -228,7 +228,8 @@ body {
 }
 
 #score-display,
-#hi-score-display {
+#hi-score-display,
+#stage-display {
   font-size: 1.6rem;
   font-weight: 900;
   color: var(--color-score);
@@ -416,3 +417,209 @@ body {
   from { opacity: 0; }
   to   { opacity: 1; }
 }
+
+/* ===== Timer Bar ===== */
+#timer-wrap {
+  width: 100%;
+  padding: 4px 0 6px;
+}
+
+#timer-bar-bg {
+  width: 100%;
+  height: 8px;
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+#timer-bar-fill {
+  height: 100%;
+  width: 100%;
+  background: #4CAF50;
+  border-radius: 4px;
+  transition: width 0.12s linear, background 0.6s ease;
+  transform-origin: left;
+}
+
+/* ===== Hi-stage (inside goal panel) ===== */
+#hi-stage-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(150, 200, 150, 0.3);
+}
+
+#hi-stage-display {
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: var(--color-score);
+  line-height: 1;
+}
+
+/* ===== Special Piece Badges ===== */
+.special-badge {
+  position: absolute;
+  bottom: 3px;
+  right: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.special-badge svg {
+  width: 12px;
+  height: 12px;
+  display: block;
+}
+
+.piece.special-line-h .special-badge,
+.piece.special-line-v .special-badge {
+  background: rgba(30, 160, 255, 0.92);
+  box-shadow: 0 1px 4px rgba(0, 100, 200, 0.4);
+}
+
+.piece.special-bomb .special-badge {
+  background: rgba(255, 80, 0, 0.92);
+  box-shadow: 0 1px 4px rgba(200, 60, 0, 0.4);
+}
+
+.piece.special-flower .special-badge {
+  background: rgba(170, 0, 230, 0.92);
+  box-shadow: 0 1px 4px rgba(130, 0, 180, 0.4);
+}
+
+/* Subtle glow on special pieces */
+.piece.special-line-h svg,
+.piece.special-line-v svg {
+  filter: drop-shadow(0 0 4px rgba(30, 160, 255, 0.6));
+}
+
+.piece.special-bomb svg {
+  filter: drop-shadow(0 0 4px rgba(255, 80, 0, 0.6));
+}
+
+.piece.special-flower svg {
+  filter: drop-shadow(0 0 5px rgba(200, 0, 255, 0.7));
+}
+
+/* ===== Stage Clear Overlay (inside board-wrapper) ===== */
+#stageclear-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.88);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  z-index: 300;
+  animation: fadeIn 0.25s ease-out;
+}
+
+#stageclear-overlay.hidden {
+  display: none;
+}
+
+#stageclear-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+}
+
+.overlay-title {
+  font-size: 2rem;
+  font-weight: 900;
+  color: #2e7d32;
+  letter-spacing: 0.04em;
+}
+
+#clear-stage-text {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #666;
+}
+
+/* ===== Game Over Overlay (full screen) ===== */
+#gameover-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.62);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-out;
+}
+
+#gameover-overlay.hidden {
+  display: none;
+}
+
+#gameover-content {
+  background: white;
+  border-radius: 20px;
+  padding: 32px 40px;
+  text-align: center;
+  box-shadow: 0 8px 48px rgba(0, 0, 0, 0.3);
+  max-width: 320px;
+  width: 90%;
+}
+
+#gameover-title {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: #c62828;
+  margin-bottom: 18px;
+}
+
+#gameover-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+#gameover-body p {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.6;
+}
+
+#gameover-body strong {
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: var(--color-score);
+}
+
+#result-hi-note {
+  font-size: 0.9rem !important;
+  font-weight: 700 !important;
+  color: #e67e22 !important;
+  min-height: 1.4em;
+}
+
+#btn-retry {
+  margin-top: 20px;
+  font-family: var(--font-main);
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 12px 36px;
+  border: none;
+  border-radius: 24px;
+  background: #4CAF50;
+  color: white;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+#btn-retry:hover  { background: #388e3c; }
+#btn-retry:active { transform: scale(0.95); }
