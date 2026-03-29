@@ -152,9 +152,12 @@ class Board {
     this._idCounter = 0;
 
     // Callbacks set by main.js
-    this.onScore  = null; // (points, chainDepth, centerX, centerY) => void
-    this.onChain  = null; // (chainDepth, centerX, centerY) => void
+    this.onScore    = null; // (points, chainDepth, centerX, centerY) => void
+    this.onChain    = null; // (chainDepth, centerX, centerY) => void
     this.onDeadlock = null; // () => void
+
+    // AudioEngine reference (set by main.js after creation)
+    this.audio = null;
 
     this._cellSize = getCellSize();
     this._init();
@@ -278,8 +281,9 @@ class Board {
 
     const matches = this._findAllMatches();
     if (matches.length === 0) {
-      // No match — swap back
+      // No match — play fail sound then swap back
       await this._delay(100);
+      this.audio?.playSwapFail();
       await this._animateSwap(p1, p2, r2, c2, r1, c1);
       this._swapInGrid(r2, c2, r1, c1);
       this.isLocked = false;
@@ -339,7 +343,7 @@ class Board {
   /* ---------- Match processing ---------- */
 
   async _processChain(matches, chainDepth) {
-    // Calculate score and fire callbacks
+    // Calculate score and centroid for popups
     let totalPoints = 0;
     let cx = 0, cy = 0, cnt = 0;
     for (const m of matches) {
@@ -355,20 +359,28 @@ class Board {
     this.onScore && this.onScore(totalPoints, chainDepth, cx, cy);
     if (chainDepth > 0) this.onChain && this.onChain(chainDepth, cx, cy);
 
+    // Play match sound (based on longest match length)
+    const maxLen = matches.reduce((m, x) => Math.max(m, x.cells.length), 0);
+    this.audio?.playMatch(maxLen);
+    // Additionally play rising chain note for chain depths ≥1
+    if (chainDepth >= 1) this.audio?.playChain(chainDepth);
+
     // Animate removal
     const toRemove = new Set();
     for (const m of matches) {
       for (const [r, c] of m.cells) toRemove.add(`${r},${c}`);
     }
 
-    // Spawn particles per removed piece
+    // Particle count scales with chain depth: 5 → 8 → 11 → 14 → …
+    const particleCount = chainDepth === 0 ? 5 : Math.min(5 + chainDepth * 3, 16);
+
     for (const key of toRemove) {
       const [r, c] = key.split(',').map(Number);
       const p = this.grid[r][c];
       if (p?.element) {
         p.element.classList.add('removing');
         const cc = this.cellCenter(r, c);
-        spawnParticles(cc.x, cc.y, FLOWER_COLORS[p.type], 4 + chainDepth);
+        spawnParticles(cc.x, cc.y, FLOWER_COLORS[p.type], particleCount);
       }
     }
     await this._delay(200);
@@ -458,6 +470,9 @@ class Board {
     // Wait for the longest fall + bounce overshoot
     const fallMs = Math.min(180 * Math.max(maxFall, 1), 300);
     await this._delay(fallMs + 90);
+
+    // Landing sound (once per fall batch)
+    if (movedPieces.length > 0) this.audio?.playLand();
 
     // Remove fall class and trigger landing bounce only on pieces that moved
     for (const p of movedPieces) {

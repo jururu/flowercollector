@@ -12,6 +12,9 @@ class InputHandler {
     this.board     = board;
     this.container = container;
 
+    // AudioEngine reference — set by main.js after creation
+    this.audio = null;
+
     // Drag state
     this._drag = null;
     /*  {
@@ -171,6 +174,7 @@ class InputHandler {
   _select(hit) {
     this._selected = { row: hit.row, col: hit.col, pieceEl: hit.piece.element };
     hit.piece.element.classList.add('selected');
+    this.audio?.playSelect();
   }
 
   _clearSelection() {
@@ -204,6 +208,7 @@ class InputHandler {
 
   _attemptSwap(r1, c1, r2, c2) {
     if (!this.board._inBounds(r2, c2)) return;
+    this.audio?.playSwap();
     this.board.trySwap(r1, c1, r2, c2);
   }
 

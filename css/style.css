@@ -111,6 +111,94 @@ body {
 
 #audio-controls {
   margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* ===== Audio toggle button ===== */
+.audio-btn {
+  font-size: 1.1rem;
+  line-height: 1;
+  width: 34px;
+  height: 34px;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.8);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, border-color 0.2s, transform 0.1s, opacity 0.2s;
+  padding: 0;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.audio-btn:hover {
+  background: white;
+  border-color: #aaa;
+}
+
+.audio-btn:active {
+  transform: scale(0.9);
+}
+
+.audio-btn.muted {
+  opacity: 0.45;
+  border-color: #ddd;
+}
+
+/* ===== Volume control ===== */
+.volume-wrap {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.vol-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #7aad7a;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+}
+
+.vol-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 72px;
+  height: 4px;
+  background: #c8e6c9;
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+}
+
+.vol-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #4CAF50;
+  cursor: pointer;
+  transition: transform 0.1s, background 0.1s;
+}
+
+.vol-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  background: #388e3c;
+}
+
+.vol-slider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #4CAF50;
+  border: none;
+  cursor: pointer;
 }
 
 /* ===== Score Bar ===== */

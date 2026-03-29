@@ -20,7 +20,13 @@
         <button id="btn-challenge" class="mode-btn">チャレンジ</button>
       </div>
       <div id="audio-controls">
-        <!-- Phase 2 -->
+        <button id="btn-se-toggle" class="audio-btn" title="SE ON/OFF" aria-label="SE音切替">🔔</button>
+        <div class="volume-wrap">
+          <span class="vol-label">SE</span>
+          <input type="range" id="se-volume" class="vol-slider"
+                 min="0" max="1" step="0.05" value="0.5"
+                 aria-label="SE音量">
+        </div>
       </div>
     </header>
 
@@ -55,6 +61,7 @@
     </main>
   </div>
 
+  <script src="js/audio.js"></script>
   <script src="js/score.js"></script>
   <script src="js/effects.js"></script>
   <script src="js/board.js"></script>

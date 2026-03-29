@@ -15,11 +15,40 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnChallenge    = document.getElementById('btn-challenge');
   const shuffleOverlay  = document.getElementById('shuffle-overlay');
 
+  const btnSEToggle     = document.getElementById('btn-se-toggle');
+  const seVolumeSlider  = document.getElementById('se-volume');
+
+  /* ---------- Audio ---------- */
+  const audio = new AudioEngine();
+
+  // Sync initial slider value from persisted settings
+  seVolumeSlider.value = audio.seVolume;
+  _updateSEToggleUI();
+
+  function _updateSEToggleUI() {
+    const on = audio.seEnabled;
+    btnSEToggle.textContent = on ? '🔔' : '🔕';
+    btnSEToggle.classList.toggle('muted', !on);
+    seVolumeSlider.disabled = !on;
+    seVolumeSlider.style.opacity = on ? '1' : '0.4';
+  }
+
+  btnSEToggle.addEventListener('click', () => {
+    audio.resume();
+    audio.setSEEnabled(!audio.seEnabled);
+    _updateSEToggleUI();
+  });
+
+  seVolumeSlider.addEventListener('input', () => {
+    audio.resume();
+    audio.setSEVolume(parseFloat(seVolumeSlider.value));
+  });
+
   /* ---------- Game objects ---------- */
-  let currentMode = 'free';
+  let currentMode  = 'free';
   const scoreManager = new ScoreManager('free');
 
-  let board       = null;
+  let board        = null;
   let inputHandler = null;
 
   /* ---------- Score callbacks ---------- */
@@ -33,16 +62,15 @@ document.addEventListener('DOMContentLoaded', () => {
     currentMode = mode;
     scoreManager.setMode(mode);
 
-    // Update mode button states
     btnFree.classList.toggle('active', mode === 'free');
     btnChallenge.classList.toggle('active', mode === 'challenge');
 
-    // Destroy old board
     if (inputHandler) inputHandler.refresh();
     boardContainer.innerHTML = '';
 
-    // Create new board
+    // Create board
     board = new Board(boardContainer);
+    board.audio = audio; // wire up audio
 
     board.onScore = (points, chainDepth, cx, cy) => {
       scoreManager.add(points);
@@ -50,15 +78,12 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     board.onChain = (chainDepth, cx, cy) => {
-      // Show chain display in header area
       chainDisplay.textContent = `${chainDepth + 1} Chain!`;
       chainDisplay.classList.remove('hidden');
       clearTimeout(board._chainHideTimer);
       board._chainHideTimer = setTimeout(() => {
         chainDisplay.classList.add('hidden');
       }, 1200);
-
-      // Popup near the board
       spawnChainPopup(cx, cy - 40, chainDepth);
     };
 
@@ -70,21 +95,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Create input handler
     inputHandler = new InputHandler(board, boardContainer);
+    inputHandler.audio = audio; // wire up audio
 
-    // Trigger initial score display
     scoreManager._notify();
   }
 
-  /* ---------- Mode button handlers ---------- */
+  /* ---------- Mode buttons ---------- */
   btnFree.addEventListener('click', () => {
     if (currentMode !== 'free') startGame('free');
   });
 
   btnChallenge.addEventListener('click', () => {
     // Challenge mode will be fully implemented in Phase 3.
-    // For now start the same free game just to keep the button responsive.
     if (currentMode !== 'challenge') startGame('challenge');
   });
+
+  /* ---------- Unlock AudioContext on first interaction ---------- */
+  function _resumeAudio() {
+    audio.resume();
+  }
+  document.addEventListener('mousedown',  _resumeAudio, { once: true });
+  document.addEventListener('touchstart', _resumeAudio, { once: true });
+  document.addEventListener('keydown',    _resumeAudio, { once: true });
 
   /* ---------- Window resize ---------- */
   let resizeTimer;
