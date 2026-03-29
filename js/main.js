@@ -3,25 +3,38 @@
 /* ===================================================
    Main — entry point
    =================================================== */
-
 document.addEventListener('DOMContentLoaded', () => {
 
   /* ---------- DOM refs ---------- */
-  const boardContainer  = document.getElementById('board-container');
-  const scoreDisplay    = document.getElementById('score-display');
-  const hiScoreDisplay  = document.getElementById('hi-score-display');
-  const chainDisplay    = document.getElementById('chain-display');
-  const btnFree         = document.getElementById('btn-free');
-  const btnChallenge    = document.getElementById('btn-challenge');
-  const shuffleOverlay  = document.getElementById('shuffle-overlay');
+  const boardContainer    = document.getElementById('board-container');
+  const scoreDisplay      = document.getElementById('score-display');
+  const hiScoreDisplay    = document.getElementById('hi-score-display');
+  const chainDisplay      = document.getElementById('chain-display');
+  const btnFree           = document.getElementById('btn-free');
+  const btnChallenge      = document.getElementById('btn-challenge');
+  const shuffleOverlay    = document.getElementById('shuffle-overlay');
 
-  const btnSEToggle     = document.getElementById('btn-se-toggle');
-  const seVolumeSlider  = document.getElementById('se-volume');
+  const timerWrap         = document.getElementById('timer-wrap');
+  const timerBarFill      = document.getElementById('timer-bar-fill');
+  const stageInfo         = document.getElementById('stage-info');
+  const stageDisplay      = document.getElementById('stage-display');
+  const goalPanel         = document.getElementById('goal-panel');
+  const goalList          = document.getElementById('goal-list');
+  const hiStageWrap       = document.getElementById('hi-stage-wrap');
+  const hiStageDisplay    = document.getElementById('hi-stage-display');
+  const stageclearOverlay = document.getElementById('stageclear-overlay');
+  const clearStageText    = document.getElementById('clear-stage-text');
+  const gameoverOverlay   = document.getElementById('gameover-overlay');
+  const resultStage       = document.getElementById('result-stage');
+  const resultScore       = document.getElementById('result-score');
+  const resultHiNote      = document.getElementById('result-hi-note');
+  const btnRetry          = document.getElementById('btn-retry');
+
+  const btnSEToggle    = document.getElementById('btn-se-toggle');
+  const seVolumeSlider = document.getElementById('se-volume');
 
   /* ---------- Audio ---------- */
   const audio = new AudioEngine();
-
-  // Sync initial slider value from persisted settings
   seVolumeSlider.value = audio.seVolume;
   _updateSEToggleUI();
 
@@ -44,34 +57,66 @@ document.addEventListener('DOMContentLoaded', () => {
     audio.setSEVolume(parseFloat(seVolumeSlider.value));
   });
 
-  /* ---------- Game objects ---------- */
+  /* ---------- Game state ---------- */
   let currentMode  = 'free';
-  const scoreManager = new ScoreManager('free');
-
   let board        = null;
   let inputHandler = null;
+  let timer        = null;
+  let stageManager = null;
+  let goals        = null;  // { [type]: remainingCount }
+  let stageLocked  = false; // prevents re-entrant stage clear / game over
 
-  /* ---------- Score callbacks ---------- */
+  const scoreManager = new ScoreManager('free');
   scoreManager.onChange = (current, hi) => {
     scoreDisplay.textContent   = ScoreManager.format(current);
     hiScoreDisplay.textContent = ScoreManager.format(hi);
   };
 
-  /* ---------- Start game ---------- */
-  function startGame(mode) {
-    currentMode = mode;
-    scoreManager.setMode(mode);
+  /* ---------- Goal helpers ---------- */
+  function _setupGoals(stage) {
+    goals = {};
+    goalList.innerHTML = '';
+    const target = stageManager.targetPerFlower(stage);
 
-    btnFree.classList.toggle('active', mode === 'free');
-    btnChallenge.classList.toggle('active', mode === 'challenge');
+    for (let t = 0; t < 7; t++) {
+      goals[t] = target;
 
-    if (inputHandler) inputHandler.refresh();
-    boardContainer.innerHTML = '';
+      const item = document.createElement('div');
+      item.className = 'goal-item';
+      item.dataset.type = t;
 
-    // Create board
-    board = new Board(boardContainer);
-    board.audio = audio; // wire up audio
+      const icon = document.createElement('div');
+      icon.className = 'goal-flower-icon';
+      icon.innerHTML = FLOWER_SVGS[t];
 
+      const cnt = document.createElement('span');
+      cnt.className = 'goal-count';
+      cnt.textContent = target;
+
+      item.appendChild(icon);
+      item.appendChild(cnt);
+      goalList.appendChild(item);
+    }
+  }
+
+  function _updateGoalUI(type) {
+    const item = goalList.querySelector(`[data-type="${type}"]`);
+    if (!item) return;
+    const cnt = item.querySelector('.goal-count');
+    if (goals[type] <= 0) {
+      cnt.textContent = '✓';
+      item.classList.add('done');
+    } else {
+      cnt.textContent = goals[type];
+    }
+  }
+
+  function _allGoalsDone() {
+    return goals !== null && Object.values(goals).every(v => v <= 0);
+  }
+
+  /* ---------- Board callbacks ---------- */
+  function _wireBoardCallbacks() {
     board.onScore = (points, chainDepth, cx, cy) => {
       scoreManager.add(points);
       spawnScorePopup(cx, cy - 20, points);
@@ -81,9 +126,9 @@ document.addEventListener('DOMContentLoaded', () => {
       chainDisplay.textContent = `${chainDepth + 1} Chain!`;
       chainDisplay.classList.remove('hidden');
       clearTimeout(board._chainHideTimer);
-      board._chainHideTimer = setTimeout(() => {
-        chainDisplay.classList.add('hidden');
-      }, 1200);
+      board._chainHideTimer = setTimeout(
+        () => chainDisplay.classList.add('hidden'), 1200
+      );
       spawnChainPopup(cx, cy - 40, chainDepth);
     };
 
@@ -93,12 +138,131 @@ document.addEventListener('DOMContentLoaded', () => {
       shuffleOverlay.classList.add('hidden');
     };
 
-    // Create input handler
+    if (currentMode === 'challenge') {
+      board.onRemove = (type) => {
+        if (!goals || goals[type] === undefined || goals[type] <= 0) return;
+        goals[type]--;
+        _updateGoalUI(type);
+        if (_allGoalsDone()) _handleStageClear();
+      };
+
+      board.onMatch = (maxLen, chainDepth) => {
+        if (!timer) return;
+        timer.addTime(StageManager.timeBonusMatch(maxLen));
+        if (chainDepth > 0) timer.addTime(StageManager.timeBonusChain());
+      };
+
+      board.onSpecial = () => {
+        timer?.addTime(StageManager.timeBonusSpecial());
+      };
+    }
+  }
+
+  /* ---------- Start game ---------- */
+  function startGame(mode) {
+    if (timer) { timer.stop(); timer = null; }
+    stageLocked = false;
+    boardContainer.style.filter = '';
+
+    currentMode = mode;
+    scoreManager.setMode(mode);
+
+    btnFree.classList.toggle('active', mode === 'free');
+    btnChallenge.classList.toggle('active', mode === 'challenge');
+
+    stageclearOverlay.classList.add('hidden');
+    gameoverOverlay.classList.add('hidden');
+    chainDisplay.classList.add('hidden');
+
+    boardContainer.innerHTML = '';
+    board = new Board(boardContainer);
+    board.audio = audio;
+    _wireBoardCallbacks();
+
     inputHandler = new InputHandler(board, boardContainer);
-    inputHandler.audio = audio; // wire up audio
+    inputHandler.audio = audio;
+
+    if (mode === 'challenge') {
+      stageManager = new StageManager();
+
+      timerWrap.classList.remove('hidden');
+      stageInfo.classList.remove('hidden');
+      goalPanel.classList.remove('hidden');
+      hiStageWrap.classList.remove('hidden');
+
+      stageDisplay.textContent   = stageManager.stage;
+      hiStageDisplay.textContent = stageManager.hiStage;
+
+      _setupGoals(stageManager.stage);
+
+      timer = new Timer(timerWrap, timerBarFill);
+      timer.onExpire = () => _handleGameOver();
+      timer.start(stageManager.timerMs());
+    } else {
+      timerWrap.classList.add('hidden');
+      stageInfo.classList.add('hidden');
+      goalPanel.classList.add('hidden');
+      hiStageWrap.classList.add('hidden');
+      stageManager = null;
+      goals = null;
+    }
 
     scoreManager._notify();
   }
+
+  /* ---------- Stage clear ---------- */
+  async function _handleStageClear() {
+    if (stageLocked) return;
+    stageLocked = true;
+    timer.stop();
+    board.isLocked = true;
+
+    clearStageText.textContent = `Stage ${stageManager.stage} クリア！`;
+    stageclearOverlay.classList.remove('hidden');
+    audio.playStageClear();
+    spawnPetalRain(boardContainer.getBoundingClientRect(), 18);
+
+    await new Promise(r => setTimeout(r, 2200));
+    stageclearOverlay.classList.add('hidden');
+
+    stageManager.advance();
+    stageDisplay.textContent   = stageManager.stage;
+    hiStageDisplay.textContent = stageManager.hiStage;
+
+    // Rebuild board for next stage
+    boardContainer.innerHTML = '';
+    board = new Board(boardContainer);
+    board.audio = audio;
+    _wireBoardCallbacks();
+    inputHandler.board = board;
+    inputHandler.refresh();
+
+    _setupGoals(stageManager.stage);
+    timer.start(stageManager.timerMs());
+    stageLocked = false;
+  }
+
+  /* ---------- Game over ---------- */
+  function _handleGameOver() {
+    if (stageLocked) return;
+    stageLocked = true;
+    board.isLocked = true;
+
+    boardContainer.style.filter = 'grayscale(0.65) brightness(0.85)';
+
+    resultStage.textContent = stageManager.stage;
+    resultScore.textContent = ScoreManager.format(scoreManager.current);
+    resultHiNote.textContent =
+      (scoreManager.current > 0 && scoreManager.current === scoreManager.hi)
+        ? '🎉 ハイスコア！'
+        : '';
+
+    gameoverOverlay.classList.remove('hidden');
+    audio.playGameOver();
+  }
+
+  /* ---------- Retry button ---------- */
+  btnRetry.addEventListener('click', () => startGame('challenge'));
 
   /* ---------- Mode buttons ---------- */
   btnFree.addEventListener('click', () => {
@@ -106,14 +270,11 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   btnChallenge.addEventListener('click', () => {
-    // Challenge mode will be fully implemented in Phase 3.
     if (currentMode !== 'challenge') startGame('challenge');
   });
 
-  /* ---------- Unlock AudioContext on first interaction ---------- */
-  function _resumeAudio() {
-    audio.resume();
-  }
+  /* ---------- AudioContext unlock on first interaction ---------- */
+  function _resumeAudio() { audio.resume(); }
   document.addEventListener('mousedown',  _resumeAudio, { once: true });
   document.addEventListener('touchstart', _resumeAudio, { once: true });
   document.addEventListener('keydown',    _resumeAudio, { once: true });
@@ -125,7 +286,7 @@ document.addEventListener('DOMContentLoaded', () => {
     resizeTimer = setTimeout(() => {
       if (board) {
         board.resize();
-        inputHandler && inputHandler.refresh();
+        inputHandler?.refresh();
       }
     }, 150);
   });
