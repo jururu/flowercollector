@@ -16,6 +16,15 @@ class AudioEngine {
     this._seVolume    = 0.5;
     this._inited      = false;
 
+    // BGM state
+    this._bgmGain     = null;
+    this._bgmRunning  = false;
+    this._bgmTimer    = null;
+    this._bgmNextNote = 0;
+    this._bgmStep     = 0;
+    this._bgmEnabled  = true;
+    this._bgmVolume   = 0.28;
+
     this._loadSettings();
   }
 
@@ -55,6 +64,11 @@ class AudioEngine {
     this._reverbGain.gain.value = this._seVolume * 0.22;
     this._convolver.connect(this._reverbGain);
     this._reverbGain.connect(ctx.destination);
+
+    // BGM bus (independent gain, no reverb)
+    this._bgmGain = ctx.createGain();
+    this._bgmGain.gain.value = this._bgmEnabled ? this._bgmVolume : 0;
+    this._bgmGain.connect(ctx.destination);
   }
 
   /** Short exponential-decay noise impulse response (≈280ms) */
@@ -312,6 +326,130 @@ class AudioEngine {
     this._noise(0.20, 300, 3000, 0.10);
   }
 
+  /* ---------- BGM ---------- */
+
+  /**
+   * Start looping ambient BGM.
+   * Safe to call multiple times — no-ops if already running.
+   */
+  startBGM() {
+    this._init();
+    if (!this._ctx || this._bgmRunning) return;
+    this._bgmRunning  = true;
+    this._bgmNextNote = this._ctx.currentTime + 0.05;
+    this._bgmStep     = 0;
+    this._scheduleBGM();
+  }
+
+  /** Fade out and stop BGM */
+  stopBGM() {
+    this._bgmRunning = false;
+    if (this._bgmTimer) { clearTimeout(this._bgmTimer); this._bgmTimer = null; }
+    if (this._bgmGain && this._ctx) {
+      this._bgmGain.gain.setTargetAtTime(0, this._ctx.currentTime, 0.4);
+    }
+  }
+
+  /** BGM scheduler — looks 0.5 s ahead, reschedules every 100 ms */
+  _scheduleBGM() {
+    if (!this._bgmRunning || !this._ctx) return;
+    const ctx  = this._ctx;
+    const N    = AudioEngine.NOTES;
+    const BEAT = 60 / 72;  // ≈0.833 s per beat at BPM=72
+
+    // 8-note melody — C major pentatonic feel
+    const MELODY = [N.C5, N.E5, N.G5, N.E5, N.C5, N.A4, N.G4, N.C5];
+
+    // Two alternating 4-beat chord voicings
+    const CHORDS = [
+      [130.81, 261.63, 392.00, 523.25],   // C3 C4 G4 C5  (C major)
+      [196.00, 392.00, 493.88, 587.33],   // G3 G4 B4 D5  (G major)
+    ];
+
+    while (this._bgmNextNote < ctx.currentTime + 0.5) {
+      const t    = this._bgmNextNote;
+      const freq = MELODY[this._bgmStep % MELODY.length];
+      this._bgmNote(freq, 0.14, BEAT * 0.82, t);
+
+      // Pad chord on every 4th beat
+      if (this._bgmStep % 4 === 0) {
+        const chord = CHORDS[Math.floor(this._bgmStep / 4) % 2];
+        this._bgmPad(chord, 0.055, BEAT * 4, t);
+      }
+
+      this._bgmNextNote += BEAT;
+      this._bgmStep++;
+    }
+
+    this._bgmTimer = setTimeout(() => this._scheduleBGM(), 100);
+  }
+
+  /** Single BGM melody note (sine, fast attack, smooth decay) */
+  _bgmNote(freq, relVol, durS, t0) {
+    if (!this._bgmGain || !this._ctx) return;
+    const ctx = this._ctx;
+    const vol = relVol * this._bgmVolume;
+
+    const osc = ctx.createOscillator();
+    osc.type  = 'sine';
+    osc.frequency.value = freq;
+
+    const env = ctx.createGain();
+    env.gain.setValueAtTime(0, t0);
+    env.gain.linearRampToValueAtTime(vol, t0 + 0.025);
+    env.gain.setTargetAtTime(0, t0 + durS * 0.55, 0.12);
+
+    osc.connect(env);
+    env.connect(this._bgmGain);
+    osc.start(t0);
+    osc.stop(t0 + durS + 0.3);
+  }
+
+  /** BGM chord pad (sine voices, slow attack/release) */
+  _bgmPad(freqs, relVol, durS, t0) {
+    if (!this._bgmGain || !this._ctx) return;
+    const vol = relVol * this._bgmVolume;
+    freqs.forEach(f => {
+      const osc = this._ctx.createOscillator();
+      osc.type  = 'sine';
+      osc.frequency.value = f;
+
+      const env = this._ctx.createGain();
+      env.gain.setValueAtTime(0, t0);
+      env.gain.linearRampToValueAtTime(vol, t0 + 0.45);
+      env.gain.setTargetAtTime(0, t0 + durS * 0.78, 0.55);
+
+      osc.connect(env);
+      env.connect(this._bgmGain);
+      osc.start(t0);
+      osc.stop(t0 + durS + 0.9);
+    });
+  }
+
+  setBGMVolume(vol) {
+    this._bgmVolume = Math.max(0, Math.min(1, vol));
+    if (this._bgmGain && this._bgmEnabled) {
+      this._bgmGain.gain.setTargetAtTime(this._bgmVolume, this._ctx.currentTime, 0.05);
+    }
+    this._saveSettings();
+  }
+
+  setBGMEnabled(on) {
+    this._bgmEnabled = !!on;
+    if (this._bgmGain && this._ctx) {
+      const target = this._bgmEnabled ? this._bgmVolume : 0;
+      this._bgmGain.gain.setTargetAtTime(target, this._ctx.currentTime, 0.2);
+    }
+    if (!this._bgmEnabled) {
+      this._bgmRunning = false;
+      if (this._bgmTimer) { clearTimeout(this._bgmTimer); this._bgmTimer = null; }
+    }
+    this._saveSettings();
+  }
+
+  get bgmVolume()  { return this._bgmVolume; }
+  get bgmEnabled() { return this._bgmEnabled; }
+
   /* ---------- Volume / Enable ---------- */
 
   /** SE master volume (0–1) */
@@ -339,13 +477,19 @@ class AudioEngine {
       this._seVolume  = isNaN(v) ? 0.5 : Math.max(0, Math.min(1, v));
       const e = localStorage.getItem('flowerMatch_seEnabled');
       this._seEnabled = e !== 'false';
+      const bv = parseFloat(localStorage.getItem('flowerMatch_bgmVol') ?? '0.28');
+      this._bgmVolume  = isNaN(bv) ? 0.28 : Math.max(0, Math.min(1, bv));
+      const be = localStorage.getItem('flowerMatch_bgmEnabled');
+      this._bgmEnabled = be !== 'false';
     } catch { /* ignore */ }
   }
 
   _saveSettings() {
     try {
-      localStorage.setItem('flowerMatch_seVol',     String(this._seVolume));
-      localStorage.setItem('flowerMatch_seEnabled',  String(this._seEnabled));
+      localStorage.setItem('flowerMatch_seVol',      String(this._seVolume));
+      localStorage.setItem('flowerMatch_seEnabled',   String(this._seEnabled));
+      localStorage.setItem('flowerMatch_bgmVol',      String(this._bgmVolume));
+      localStorage.setItem('flowerMatch_bgmEnabled',  String(this._bgmEnabled));
     } catch { /* ignore */ }
   }
 }

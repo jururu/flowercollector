@@ -30,13 +30,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const resultHiNote      = document.getElementById('result-hi-note');
   const btnRetry          = document.getElementById('btn-retry');
 
+  const btnBGMToggle   = document.getElementById('btn-bgm-toggle');
+  const bgmVolumeSlider = document.getElementById('bgm-volume');
   const btnSEToggle    = document.getElementById('btn-se-toggle');
   const seVolumeSlider = document.getElementById('se-volume');
 
   /* ---------- Audio ---------- */
   const audio = new AudioEngine();
-  seVolumeSlider.value = audio.seVolume;
+  seVolumeSlider.value  = audio.seVolume;
+  bgmVolumeSlider.value = audio.bgmVolume;
   _updateSEToggleUI();
+  _updateBGMToggleUI();
 
   function _updateSEToggleUI() {
     const on = audio.seEnabled;
@@ -44,6 +48,14 @@ document.addEventListener('DOMContentLoaded', () => {
     btnSEToggle.classList.toggle('muted', !on);
     seVolumeSlider.disabled = !on;
     seVolumeSlider.style.opacity = on ? '1' : '0.4';
+  }
+
+  function _updateBGMToggleUI() {
+    const on = audio.bgmEnabled;
+    btnBGMToggle.textContent = on ? '🎵' : '🔇';
+    btnBGMToggle.classList.toggle('muted', !on);
+    bgmVolumeSlider.disabled = !on;
+    bgmVolumeSlider.style.opacity = on ? '1' : '0.4';
   }
 
   btnSEToggle.addEventListener('click', () => {
@@ -55,6 +67,19 @@ document.addEventListener('DOMContentLoaded', () => {
   seVolumeSlider.addEventListener('input', () => {
     audio.resume();
     audio.setSEVolume(parseFloat(seVolumeSlider.value));
+  });
+
+  btnBGMToggle.addEventListener('click', () => {
+    audio.resume();
+    const next = !audio.bgmEnabled;
+    audio.setBGMEnabled(next);
+    if (next) audio.startBGM();
+    _updateBGMToggleUI();
+  });
+
+  bgmVolumeSlider.addEventListener('input', () => {
+    audio.resume();
+    audio.setBGMVolume(parseFloat(bgmVolumeSlider.value));
   });
 
   /* ---------- Game state ---------- */
@@ -247,6 +272,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (stageLocked) return;
     stageLocked = true;
     board.isLocked = true;
+    audio.stopBGM();
 
     boardContainer.style.filter = 'grayscale(0.65) brightness(0.85)';
 
@@ -262,7 +288,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ---------- Retry button ---------- */
-  btnRetry.addEventListener('click', () => startGame('challenge'));
+  btnRetry.addEventListener('click', () => {
+    startGame('challenge');
+    if (audio.bgmEnabled) audio.startBGM();
+  });
 
   /* ---------- Mode buttons ---------- */
   btnFree.addEventListener('click', () => {
@@ -274,10 +303,22 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ---------- AudioContext unlock on first interaction ---------- */
-  function _resumeAudio() { audio.resume(); }
+  function _resumeAudio() {
+    audio.resume();
+    if (audio.bgmEnabled) audio.startBGM();
+  }
   document.addEventListener('mousedown',  _resumeAudio, { once: true });
   document.addEventListener('touchstart', _resumeAudio, { once: true });
   document.addEventListener('keydown',    _resumeAudio, { once: true });
+
+  /* ---------- Page visibility — pause/resume BGM ---------- */
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      audio.stopBGM();
+    } else {
+      if (audio.bgmEnabled) audio.startBGM();
+    }
+  });
 
   /* ---------- Window resize ---------- */
   let resizeTimer;

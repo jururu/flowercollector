@@ -101,10 +101,46 @@
   100% { transform: translateY(120vh) rotate(720deg); opacity: 0; }
 }
 
+/* Enhanced petal fall with horizontal drift */
+@keyframes petal-fall-drift {
+  0%   { transform: translateY(-20px)  translateX(0)                   rotate(0deg);   opacity: 1;   }
+  25%  { transform: translateY(28vh)   translateX(var(--drift))         rotate(180deg); opacity: 1;   }
+  50%  { transform: translateY(58vh)   translateX(0)                   rotate(360deg); opacity: 0.8; }
+  75%  { transform: translateY(88vh)   translateX(calc(var(--drift) * -0.6)) rotate(540deg); opacity: 0.4; }
+  100% { transform: translateY(120vh)  translateX(0)                   rotate(720deg); opacity: 0;   }
+}
+
 .petal {
   position: fixed;
   pointer-events: none;
   font-size: 1.2rem;
   z-index: 700;
   animation: petal-fall var(--dur, 3s) ease-in forwards;
+}
+
+/* ===== Chain flash (Phase 4) ===== */
+@keyframes chain-flash {
+  0%   { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.chain-flash {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 800;
+  animation: chain-flash 350ms ease-out forwards;
+}
+
+/* ===== Chain popup tiers (Phase 4) ===== */
+.chain-popup.big {
+  font-size: 1.8rem;
+  color: #f39c12;
+  text-shadow: 0 2px 8px rgba(243, 156, 18, 0.5);
+}
+
+.chain-popup.mega {
+  font-size: 2.3rem;
+  color: #e74c3c;
+  text-shadow: 0 0 16px rgba(255, 80, 0, 0.7), 0 2px 6px rgba(0,0,0,0.3);
 }
