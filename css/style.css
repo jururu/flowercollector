@@ -480,12 +480,6 @@ body {
   display: block;
 }
 
-.piece.special-line-h .special-badge,
-.piece.special-line-v .special-badge {
-  background: rgba(30, 160, 255, 0.92);
-  box-shadow: 0 1px 4px rgba(0, 100, 200, 0.4);
-}
-
 .piece.special-bomb .special-badge {
   background: rgba(255, 80, 0, 0.92);
   box-shadow: 0 1px 4px rgba(200, 60, 0, 0.4);
@@ -497,11 +491,6 @@ body {
 }
 
 /* Subtle glow on special pieces */
-.piece.special-line-h svg,
-.piece.special-line-v svg {
-  filter: drop-shadow(0 0 4px rgba(30, 160, 255, 0.6));
-}
-
 .piece.special-bomb svg {
   filter: drop-shadow(0 0 4px rgba(255, 80, 0, 0.6));
 }

@@ -131,14 +131,6 @@ const FLOWER_SVGS = [
    Special piece badge SVGs (20×20 viewBox, white icons)
    =================================================== */
 const SPECIAL_BADGE_SVGS = {
-  'line-h': `<svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-    <path d="M3 10h14M14 6l4 4-4 4M6 6L2 10l4 4"
-          stroke="white" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-  </svg>`,
-  'line-v': `<svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-    <path d="M10 3v14M6 6l4-4 4 4M6 14l4 4 4-4"
-          stroke="white" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-  </svg>`,
   'bomb': `<svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
     <circle cx="10" cy="10" r="7" stroke="white" stroke-width="2" fill="none"/>
     <path d="M6.5 6.5l7 7M13.5 6.5l-7 7"
@@ -244,7 +236,7 @@ class Board {
     if (!piece.element) return;
     const el = piece.element;
     // Remove old special classes / badge
-    el.classList.remove('special-line-h', 'special-line-v', 'special-bomb', 'special-flower');
+    el.classList.remove('special-bomb', 'special-flower');
     el.querySelector('.special-badge')?.remove();
 
     if (!piece.special) return;
@@ -395,12 +387,6 @@ class Board {
 
   _addSpecialArea(p, set) {
     switch (p.special) {
-      case 'line-h':
-        for (let c = 0; c < BOARD_SIZE; c++) set.add(`${p.row},${c}`);
-        break;
-      case 'line-v':
-        for (let r = 0; r < BOARD_SIZE; r++) set.add(`${r},${p.col}`);
-        break;
       case 'bomb':
         for (let dr = -1; dr <= 1; dr++)
           for (let dc = -1; dc <= 1; dc++) {
@@ -655,11 +641,8 @@ class Board {
         } else if (run.cells.length >= 5) {
           special = 'flower';
           specialCell = run.cells[Math.floor(run.cells.length / 2)];
-        } else if (run.cells.length === 4) {
-          // Cross direction: horizontal match → vertical line piece (clears column)
-          special = run.dir === 'h' ? 'line-v' : 'line-h';
-          specialCell = run.cells[Math.floor(run.cells.length / 2)];
         }
+        // 4-match: no special piece (line pieces removed)
       }
 
       result.push({ ...run, special, specialCell });
@@ -733,18 +716,16 @@ class Board {
   _playSpecialCreate(special) {
     if (!this.audio) return;
     switch (special) {
-      case 'line-h': case 'line-v': this.audio.playLineCreate?.();       break;
-      case 'bomb':                  this.audio.playBombCreate?.();        break;
-      case 'flower':                this.audio.playBombFlowerCreate?.();  break;
+      case 'bomb':   this.audio.playBombCreate?.();        break;
+      case 'flower': this.audio.playBombFlowerCreate?.();  break;
     }
   }
 
   _playSpecialActivate(special) {
     if (!this.audio) return;
     switch (special) {
-      case 'line-h': case 'line-v': this.audio.playLineActivate?.();      break;
-      case 'bomb':                  this.audio.playBombActivate?.();       break;
-      case 'flower':                this.audio.playBombFlowerActivate?.(); break;
+      case 'bomb':   this.audio.playBombActivate?.();       break;
+      case 'flower': this.audio.playBombFlowerActivate?.(); break;
     }
   }
 
