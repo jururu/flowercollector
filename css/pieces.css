@@ -54,8 +54,8 @@
 /* ===== Flower type colors (used for particles etc.) ===== */
 .flower-0 { --piece-color: #F44336; } /* Tulip     */
 .flower-1 { --piece-color: #FDD835; } /* Sunflower */
-.flower-2 { --piece-color: #E91E63; } /* Rose      */
+.flower-2 { --piece-color: #EC407A; } /* Rose      */
 .flower-3 { --piece-color: #7B1FA2; } /* Violet    */
 .flower-4 { --piece-color: #43A047; } /* Clover    */
-.flower-5 { --piece-color: #1E88E5; } /* MornGlory */
+.flower-5 { --piece-color: #00BCD4; } /* MornGlory */
 .flower-6 { --piece-color: #FF7043; } /* Dandelion */

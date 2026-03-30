@@ -17,7 +17,7 @@ function getCellSize() {
    =================================================== */
 const FLOWER_COLORS = [
   '#F44336', '#FDD835', '#E91E63', '#7B1FA2',
-  '#43A047', '#1E88E5', '#FF7043',
+  '#43A047', '#00BCD4', '#FF7043',
 ];
 
 const FLOWER_SVGS = [
@@ -54,20 +54,20 @@ const FLOWER_SVGS = [
     <circle cx="32" cy="32" r="2"  fill="#8D6E63"/>
   </svg>`,
 
-  /* 2 バラ — ピンク #E91E63 */
+  /* 2 バラ — 白 #FFFFFF (白バラ、ピンク花弁) */
   `<svg viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
-    <rect x="1" y="1" width="54" height="54" rx="12" fill="#E91E63"/>
-    <circle cx="28" cy="9"  r="10" fill="rgba(255,255,255,0.85)"/>
-    <circle cx="28" cy="9"  r="10" fill="rgba(255,255,255,0.85)" transform="rotate(72 28 28)"/>
-    <circle cx="28" cy="9"  r="10" fill="rgba(255,255,255,0.85)" transform="rotate(144 28 28)"/>
-    <circle cx="28" cy="9"  r="10" fill="rgba(255,255,255,0.85)" transform="rotate(216 28 28)"/>
-    <circle cx="28" cy="9"  r="10" fill="rgba(255,255,255,0.85)" transform="rotate(288 28 28)"/>
-    <circle cx="28" cy="28" r="14" fill="#AD1457"/>
-    <circle cx="28" cy="15" r="7"  fill="rgba(255,255,255,0.8)" transform="rotate(36 28 28)"/>
-    <circle cx="28" cy="15" r="7"  fill="rgba(255,255,255,0.8)" transform="rotate(108 28 28)"/>
-    <circle cx="28" cy="15" r="7"  fill="rgba(255,255,255,0.8)" transform="rotate(180 28 28)"/>
-    <circle cx="28" cy="15" r="7"  fill="rgba(255,255,255,0.8)" transform="rotate(252 28 28)"/>
-    <circle cx="28" cy="15" r="7"  fill="rgba(255,255,255,0.8)" transform="rotate(324 28 28)"/>
+    <rect x="1" y="1" width="54" height="54" rx="12" fill="#FFFFFF" stroke="#DDDDDD" stroke-width="1.5"/>
+    <circle cx="28" cy="9"  r="10" fill="#F48FB1"/>
+    <circle cx="28" cy="9"  r="10" fill="#F48FB1" transform="rotate(72 28 28)"/>
+    <circle cx="28" cy="9"  r="10" fill="#F48FB1" transform="rotate(144 28 28)"/>
+    <circle cx="28" cy="9"  r="10" fill="#F48FB1" transform="rotate(216 28 28)"/>
+    <circle cx="28" cy="9"  r="10" fill="#F48FB1" transform="rotate(288 28 28)"/>
+    <circle cx="28" cy="28" r="14" fill="#EC407A"/>
+    <circle cx="28" cy="15" r="7"  fill="#F48FB1" transform="rotate(36 28 28)"/>
+    <circle cx="28" cy="15" r="7"  fill="#F48FB1" transform="rotate(108 28 28)"/>
+    <circle cx="28" cy="15" r="7"  fill="#F48FB1" transform="rotate(180 28 28)"/>
+    <circle cx="28" cy="15" r="7"  fill="#F48FB1" transform="rotate(252 28 28)"/>
+    <circle cx="28" cy="15" r="7"  fill="#F48FB1" transform="rotate(324 28 28)"/>
     <circle cx="28" cy="28" r="8"  fill="#E91E63"/>
     <circle cx="28" cy="28" r="4"  fill="#880E4F"/>
   </svg>`,
@@ -99,9 +99,9 @@ const FLOWER_SVGS = [
     <line x1="28" y1="18" x2="28" y2="28" stroke="rgba(255,255,255,0.6)" stroke-width="3" stroke-linecap="round" transform="rotate(270 28 28)"/>
   </svg>`,
 
-  /* 5 あさがお — 青 #1E88E5 */
+  /* 5 あさがお — 水色 #00BCD4 */
   `<svg viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
-    <rect x="1" y="1" width="54" height="54" rx="12" fill="#1E88E5"/>
+    <rect x="1" y="1" width="54" height="54" rx="12" fill="#00BCD4"/>
     <circle cx="28" cy="28" r="23" fill="rgba(255,255,255,0.12)"/>
     <line x1="28" y1="28" x2="28" y2="5"  stroke="rgba(255,255,255,0.55)" stroke-width="3.5" stroke-linecap="round"/>
     <line x1="28" y1="28" x2="28" y2="5"  stroke="rgba(255,255,255,0.55)" stroke-width="3.5" stroke-linecap="round" transform="rotate(72 28 28)"/>
@@ -109,8 +109,8 @@ const FLOWER_SVGS = [
     <line x1="28" y1="28" x2="28" y2="5"  stroke="rgba(255,255,255,0.55)" stroke-width="3.5" stroke-linecap="round" transform="rotate(216 28 28)"/>
     <line x1="28" y1="28" x2="28" y2="5"  stroke="rgba(255,255,255,0.55)" stroke-width="3.5" stroke-linecap="round" transform="rotate(288 28 28)"/>
     <circle cx="28" cy="28" r="12" fill="white"/>
-    <circle cx="28" cy="28" r="8"  fill="#90CAF9"/>
-    <circle cx="28" cy="28" r="4"  fill="#1E88E5"/>
+    <circle cx="28" cy="28" r="8"  fill="#80DEEA"/>
+    <circle cx="28" cy="28" r="4"  fill="#00BCD4"/>
   </svg>`,
 
   /* 6 たんぽぽ — オレンジ #FF7043 */
@@ -150,6 +150,14 @@ const FLOWER_SVGS = [
    Special piece badge SVGs (20×20 viewBox, white icons)
    =================================================== */
 const SPECIAL_BADGE_SVGS = {
+  'line-h': `<svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+    <path d="M3 10h14M14 6l4 4-4 4M6 6L2 10l4 4"
+          stroke="white" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>`,
+  'line-v': `<svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+    <path d="M10 3v14M6 6l4-4 4 4M6 14l4 4 4-4"
+          stroke="white" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>`,
   'bomb': `<svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
     <circle cx="10" cy="10" r="7" stroke="white" stroke-width="2" fill="none"/>
     <path d="M6.5 6.5l7 7M13.5 6.5l-7 7"
@@ -255,7 +263,7 @@ class Board {
     if (!piece.element) return;
     const el = piece.element;
     // Remove old special classes / badge
-    el.classList.remove('special-bomb', 'special-flower');
+    el.classList.remove('special-line-h', 'special-line-v', 'special-bomb', 'special-flower');
     el.querySelector('.special-badge')?.remove();
 
     if (!piece.special) return;
@@ -407,6 +415,12 @@ class Board {
 
   _addSpecialArea(p, set) {
     switch (p.special) {
+      case 'line-h':
+        for (let c = 0; c < BOARD_SIZE; c++) set.add(`${p.row},${c}`);
+        break;
+      case 'line-v':
+        for (let r = 0; r < BOARD_SIZE; r++) set.add(`${r},${p.col}`);
+        break;
       case 'bomb':
         for (let dr = -1; dr <= 1; dr++)
           for (let dc = -1; dc <= 1; dc++) {
@@ -661,8 +675,11 @@ class Board {
         } else if (run.cells.length >= 5) {
           special = 'flower';
           specialCell = run.cells[Math.floor(run.cells.length / 2)];
+        } else if (run.cells.length === 4) {
+          // 4-match: line piece (h-match→clears column, v-match→clears row)
+          special = run.dir === 'h' ? 'line-v' : 'line-h';
+          specialCell = run.cells[Math.floor(run.cells.length / 2)];
         }
-        // 4-match: no special piece (line pieces removed)
       }
 
       result.push({ ...run, special, specialCell });
@@ -736,16 +753,18 @@ class Board {
   _playSpecialCreate(special) {
     if (!this.audio) return;
     switch (special) {
-      case 'bomb':   this.audio.playBombCreate?.();        break;
-      case 'flower': this.audio.playBombFlowerCreate?.();  break;
+      case 'line-h': case 'line-v': this.audio.playLineCreate?.();       break;
+      case 'bomb':                  this.audio.playBombCreate?.();        break;
+      case 'flower':                this.audio.playBombFlowerCreate?.();  break;
     }
   }
 
   _playSpecialActivate(special) {
     if (!this.audio) return;
     switch (special) {
-      case 'bomb':   this.audio.playBombActivate?.();       break;
-      case 'flower': this.audio.playBombFlowerActivate?.(); break;
+      case 'line-h': case 'line-v': this.audio.playLineActivate?.();      break;
+      case 'bomb':                  this.audio.playBombActivate?.();       break;
+      case 'flower':                this.audio.playBombFlowerActivate?.(); break;
     }
   }
 
