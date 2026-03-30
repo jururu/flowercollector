@@ -17,11 +17,11 @@
 }
 
 .piece svg {
-  width: calc(var(--cell-size) * 0.82);
-  height: calc(var(--cell-size) * 0.82);
+  width: calc(var(--cell-size) * 0.92);
+  height: calc(var(--cell-size) * 0.92);
   display: block;
   pointer-events: none;
-  filter: drop-shadow(0 2px 3px rgba(0,0,0,0.15));
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.22));
   transition: transform 0.12s ease-out;
 }
 

@@ -21,109 +21,127 @@ const FLOWER_COLORS = [
 ];
 
 const FLOWER_SVGS = [
-  /* 0 チューリップ */
+  /* 0 チューリップ — 赤 */
   `<svg viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
-    <rect x="26" y="40" width="4" height="12" rx="2" fill="#27AE60"/>
-    <path d="M22 42 Q18 38 18 30 Q18 20 28 18 Q38 20 38 30 Q38 38 34 42 Q31 44 28 44 Q25 44 22 42Z" fill="#E74C3C"/>
-    <path d="M28 18 Q24 14 20 17 Q16 22 18 30" fill="#E74C3C"/>
-    <path d="M28 18 Q32 14 36 17 Q40 22 38 30" fill="#C0392B"/>
-    <path d="M22 24 Q20 30 22 38" stroke="#F1948A" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.6"/>
+    <rect x="2" y="2" width="52" height="52" rx="12" fill="#FFCDD2"/>
+    <path d="M22 10 C16 5 9 6 8 14 C7 22 13 26 19 26 C17 18 18 13 22 10Z" fill="#C0392B"/>
+    <path d="M34 10 C40 5 47 6 48 14 C49 22 43 26 37 26 C39 18 38 13 34 10Z" fill="#E74C3C"/>
+    <path d="M28 48 C19 48 11 41 11 31 C11 20 17 12 22 10 L28 7 L34 10 C39 12 45 20 45 31 C45 41 37 48 28 48Z" fill="#E74C3C"/>
+    <path d="M21 17 Q19 28 21 39" stroke="rgba(255,255,255,0.5)" stroke-width="3" fill="none" stroke-linecap="round"/>
   </svg>`,
-  /* 1 ひまわり */
+
+  /* 1 ひまわり — 黄 */
   `<svg viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
-    <rect x="26" y="40" width="4" height="12" rx="2" fill="#27AE60"/>
-    <ellipse cx="28" cy="12" rx="6" ry="10" fill="#F1C40F"/>
-    <ellipse cx="28" cy="12" rx="6" ry="10" fill="#F1C40F" transform="rotate(45 28 27)"/>
-    <ellipse cx="28" cy="12" rx="6" ry="10" fill="#F1C40F" transform="rotate(90 28 27)"/>
-    <ellipse cx="28" cy="12" rx="6" ry="10" fill="#F1C40F" transform="rotate(135 28 27)"/>
-    <ellipse cx="28" cy="12" rx="6" ry="10" fill="#F1C40F" transform="rotate(180 28 27)"/>
-    <ellipse cx="28" cy="12" rx="6" ry="10" fill="#F1C40F" transform="rotate(225 28 27)"/>
-    <ellipse cx="28" cy="12" rx="6" ry="10" fill="#F1C40F" transform="rotate(270 28 27)"/>
-    <ellipse cx="28" cy="12" rx="6" ry="10" fill="#F1C40F" transform="rotate(315 28 27)"/>
-    <circle cx="28" cy="27" r="9" fill="#5D3A1A"/>
-    <circle cx="28" cy="27" r="6" fill="#7B4F27"/>
-    <circle cx="25" cy="25" r="1.5" fill="#9B6B3A"/>
-    <circle cx="31" cy="25" r="1.5" fill="#9B6B3A"/>
-    <circle cx="28" cy="30" r="1.5" fill="#9B6B3A"/>
+    <rect x="2" y="2" width="52" height="52" rx="12" fill="#FFF9C4"/>
+    <ellipse cx="28" cy="9"  rx="6" ry="11" fill="#F1C40F"/>
+    <ellipse cx="28" cy="9"  rx="6" ry="11" fill="#F1C40F" transform="rotate(45 28 28)"/>
+    <ellipse cx="28" cy="9"  rx="6" ry="11" fill="#F1C40F" transform="rotate(90 28 28)"/>
+    <ellipse cx="28" cy="9"  rx="6" ry="11" fill="#F1C40F" transform="rotate(135 28 28)"/>
+    <ellipse cx="28" cy="9"  rx="6" ry="11" fill="#F1C40F" transform="rotate(180 28 28)"/>
+    <ellipse cx="28" cy="9"  rx="6" ry="11" fill="#F1C40F" transform="rotate(225 28 28)"/>
+    <ellipse cx="28" cy="9"  rx="6" ry="11" fill="#F1C40F" transform="rotate(270 28 28)"/>
+    <ellipse cx="28" cy="9"  rx="6" ry="11" fill="#F1C40F" transform="rotate(315 28 28)"/>
+    <circle cx="28" cy="28" r="13" fill="#5D3A1A"/>
+    <circle cx="28" cy="28" r="10" fill="#7B4F27"/>
+    <circle cx="23" cy="23" r="2.2" fill="#9B6B3A"/>
+    <circle cx="28" cy="22" r="2.2" fill="#9B6B3A"/>
+    <circle cx="33" cy="23" r="2.2" fill="#9B6B3A"/>
+    <circle cx="23" cy="28" r="2.2" fill="#9B6B3A"/>
+    <circle cx="28" cy="28" r="2.2" fill="#9B6B3A"/>
+    <circle cx="33" cy="28" r="2.2" fill="#9B6B3A"/>
+    <circle cx="23" cy="33" r="2.2" fill="#9B6B3A"/>
+    <circle cx="28" cy="33" r="2.2" fill="#9B6B3A"/>
+    <circle cx="33" cy="33" r="2.2" fill="#9B6B3A"/>
   </svg>`,
-  /* 2 バラ */
+
+  /* 2 バラ — ピンク/マゼンタ */
   `<svg viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
-    <rect x="26" y="42" width="4" height="10" rx="2" fill="#27AE60"/>
-    <ellipse cx="28" cy="13" rx="10" ry="13" fill="#E91E8F"/>
-    <ellipse cx="28" cy="13" rx="10" ry="13" fill="#E91E8F" transform="rotate(72 28 28)"/>
-    <ellipse cx="28" cy="13" rx="10" ry="13" fill="#E91E8F" transform="rotate(144 28 28)"/>
-    <ellipse cx="28" cy="13" rx="10" ry="13" fill="#E91E8F" transform="rotate(216 28 28)"/>
-    <ellipse cx="28" cy="13" rx="10" ry="13" fill="#E91E8F" transform="rotate(288 28 28)"/>
-    <circle cx="28" cy="28" r="10" fill="#AD1457"/>
-    <path d="M28 20 C33 22 35 27 33 31 C31 35 25 35 23 31 C21 27 23 22 27 21 C27.5 20.5 28 20 28 20Z" fill="#E91E8F" opacity="0.75"/>
+    <rect x="2" y="2" width="52" height="52" rx="12" fill="#FCE4EC"/>
+    <circle cx="28" cy="9"  r="11" fill="#E91E8F"/>
+    <circle cx="28" cy="9"  r="11" fill="#E91E8F" transform="rotate(72 28 28)"/>
+    <circle cx="28" cy="9"  r="11" fill="#E91E8F" transform="rotate(144 28 28)"/>
+    <circle cx="28" cy="9"  r="11" fill="#E91E8F" transform="rotate(216 28 28)"/>
+    <circle cx="28" cy="9"  r="11" fill="#E91E8F" transform="rotate(288 28 28)"/>
+    <circle cx="28" cy="28" r="15" fill="#C2185B"/>
+    <circle cx="28" cy="15" r="8"  fill="#E91E8F" transform="rotate(36 28 28)"/>
+    <circle cx="28" cy="15" r="8"  fill="#E91E8F" transform="rotate(108 28 28)"/>
+    <circle cx="28" cy="15" r="8"  fill="#E91E8F" transform="rotate(180 28 28)"/>
+    <circle cx="28" cy="15" r="8"  fill="#E91E8F" transform="rotate(252 28 28)"/>
+    <circle cx="28" cy="15" r="8"  fill="#E91E8F" transform="rotate(324 28 28)"/>
+    <circle cx="28" cy="28" r="9"  fill="#AD1457"/>
     <circle cx="28" cy="28" r="4.5" fill="#880E4F"/>
   </svg>`,
-  /* 3 すみれ */
+
+  /* 3 すみれ — 紫 */
   `<svg viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
-    <rect x="26" y="44" width="4" height="8" rx="2" fill="#27AE60"/>
-    <ellipse cx="28" cy="14" rx="8" ry="12" fill="#9B59B6"/>
-    <ellipse cx="28" cy="14" rx="8" ry="12" fill="#9B59B6" transform="rotate(72 28 28)"/>
-    <ellipse cx="28" cy="14" rx="8" ry="12" fill="#9B59B6" transform="rotate(144 28 28)"/>
-    <ellipse cx="28" cy="14" rx="8" ry="12" fill="#9B59B6" transform="rotate(216 28 28)"/>
-    <ellipse cx="28" cy="14" rx="8" ry="12" fill="#9B59B6" transform="rotate(288 28 28)"/>
-    <circle cx="28" cy="28" r="7" fill="#F39C12"/>
-    <circle cx="28" cy="28" r="4" fill="#E67E22"/>
+    <rect x="2" y="2" width="52" height="52" rx="12" fill="#F3E5F5"/>
+    <circle cx="28" cy="9"  r="12" fill="#9B59B6"/>
+    <circle cx="28" cy="9"  r="12" fill="#9B59B6" transform="rotate(72 28 28)"/>
+    <circle cx="28" cy="9"  r="12" fill="#9B59B6" transform="rotate(144 28 28)"/>
+    <circle cx="28" cy="9"  r="12" fill="#9B59B6" transform="rotate(216 28 28)"/>
+    <circle cx="28" cy="9"  r="12" fill="#9B59B6" transform="rotate(288 28 28)"/>
+    <circle cx="28" cy="28" r="11" fill="#F39C12"/>
+    <circle cx="28" cy="28" r="7"  fill="#E67E22"/>
+    <circle cx="28" cy="28" r="3.5" fill="#D35400"/>
   </svg>`,
-  /* 4 クローバー */
+
+  /* 4 クローバー — 緑 */
   `<svg viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
-    <rect x="26" y="44" width="4" height="10" rx="2" fill="#1a7a40"/>
-    <ellipse cx="28" cy="16" rx="11" ry="13" fill="#2ECC71"/>
-    <ellipse cx="28" cy="16" rx="11" ry="13" fill="#2ECC71" transform="rotate(90 28 28)"/>
-    <ellipse cx="28" cy="16" rx="11" ry="13" fill="#2ECC71" transform="rotate(180 28 28)"/>
-    <ellipse cx="28" cy="16" rx="11" ry="13" fill="#2ECC71" transform="rotate(270 28 28)"/>
-    <circle cx="28" cy="28" r="5.5" fill="#27AE60"/>
-    <line x1="22" y1="22" x2="28" y2="28" stroke="#27AE60" stroke-width="1.5"/>
-    <line x1="34" y1="22" x2="28" y2="28" stroke="#27AE60" stroke-width="1.5"/>
-    <line x1="22" y1="34" x2="28" y2="28" stroke="#27AE60" stroke-width="1.5"/>
-    <line x1="34" y1="34" x2="28" y2="28" stroke="#27AE60" stroke-width="1.5"/>
+    <rect x="2" y="2" width="52" height="52" rx="12" fill="#E8F5E9"/>
+    <circle cx="28" cy="14" r="14" fill="#2ECC71"/>
+    <circle cx="42" cy="28" r="14" fill="#2ECC71"/>
+    <circle cx="28" cy="42" r="14" fill="#2ECC71"/>
+    <circle cx="14" cy="28" r="14" fill="#2ECC71"/>
+    <circle cx="28" cy="28" r="10" fill="#27AE60"/>
+    <line x1="28" y1="18" x2="28" y2="28" stroke="rgba(255,255,255,0.55)" stroke-width="3" stroke-linecap="round"/>
+    <line x1="28" y1="18" x2="28" y2="28" stroke="rgba(255,255,255,0.55)" stroke-width="3" stroke-linecap="round" transform="rotate(90 28 28)"/>
+    <line x1="28" y1="18" x2="28" y2="28" stroke="rgba(255,255,255,0.55)" stroke-width="3" stroke-linecap="round" transform="rotate(180 28 28)"/>
+    <line x1="28" y1="18" x2="28" y2="28" stroke="rgba(255,255,255,0.55)" stroke-width="3" stroke-linecap="round" transform="rotate(270 28 28)"/>
   </svg>`,
-  /* 5 あさがお */
+
+  /* 5 あさがお — 青 */
   `<svg viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
-    <rect x="26" y="42" width="4" height="10" rx="2" fill="#27AE60"/>
-    <circle cx="28" cy="26" r="18" fill="#5DADE2"/>
-    <line x1="28" y1="26" x2="28" y2="8"  stroke="#2471A3" stroke-width="2" stroke-linecap="round"/>
-    <line x1="28" y1="26" x2="28" y2="8"  stroke="#2471A3" stroke-width="2" stroke-linecap="round" transform="rotate(72 28 26)"/>
-    <line x1="28" y1="26" x2="28" y2="8"  stroke="#2471A3" stroke-width="2" stroke-linecap="round" transform="rotate(144 28 26)"/>
-    <line x1="28" y1="26" x2="28" y2="8"  stroke="#2471A3" stroke-width="2" stroke-linecap="round" transform="rotate(216 28 26)"/>
-    <line x1="28" y1="26" x2="28" y2="8"  stroke="#2471A3" stroke-width="2" stroke-linecap="round" transform="rotate(288 28 26)"/>
-    <circle cx="28" cy="26" r="8"  fill="white"/>
-    <circle cx="28" cy="26" r="4.5" fill="#AED6F1"/>
-    <circle cx="28" cy="26" r="2"  fill="#3498DB"/>
+    <rect x="2" y="2" width="52" height="52" rx="12" fill="#E3F2FD"/>
+    <circle cx="28" cy="28" r="24" fill="#3498DB"/>
+    <line x1="28" y1="28" x2="28" y2="5"  stroke="#1a6fa8" stroke-width="3.5" stroke-linecap="round"/>
+    <line x1="28" y1="28" x2="28" y2="5"  stroke="#1a6fa8" stroke-width="3.5" stroke-linecap="round" transform="rotate(72 28 28)"/>
+    <line x1="28" y1="28" x2="28" y2="5"  stroke="#1a6fa8" stroke-width="3.5" stroke-linecap="round" transform="rotate(144 28 28)"/>
+    <line x1="28" y1="28" x2="28" y2="5"  stroke="#1a6fa8" stroke-width="3.5" stroke-linecap="round" transform="rotate(216 28 28)"/>
+    <line x1="28" y1="28" x2="28" y2="5"  stroke="#1a6fa8" stroke-width="3.5" stroke-linecap="round" transform="rotate(288 28 28)"/>
+    <circle cx="28" cy="28" r="12" fill="white"/>
+    <circle cx="28" cy="28" r="8"  fill="#AED6F1"/>
+    <circle cx="28" cy="28" r="4"  fill="#3498DB"/>
   </svg>`,
-  /* 6 たんぽぽ */
+
+  /* 6 たんぽぽ — オレンジ */
   `<svg viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
-    <rect x="26" y="42" width="4" height="10" rx="2" fill="#27AE60"/>
-    <line x1="28" y1="28" x2="28" y2="8"  stroke="#E67E22" stroke-width="1.8" stroke-linecap="round"/>
-    <line x1="28" y1="28" x2="28" y2="8"  stroke="#E67E22" stroke-width="1.8" stroke-linecap="round" transform="rotate(30 28 28)"/>
-    <line x1="28" y1="28" x2="28" y2="8"  stroke="#E67E22" stroke-width="1.8" stroke-linecap="round" transform="rotate(60 28 28)"/>
-    <line x1="28" y1="28" x2="28" y2="8"  stroke="#E67E22" stroke-width="1.8" stroke-linecap="round" transform="rotate(90 28 28)"/>
-    <line x1="28" y1="28" x2="28" y2="8"  stroke="#E67E22" stroke-width="1.8" stroke-linecap="round" transform="rotate(120 28 28)"/>
-    <line x1="28" y1="28" x2="28" y2="8"  stroke="#E67E22" stroke-width="1.8" stroke-linecap="round" transform="rotate(150 28 28)"/>
-    <line x1="28" y1="28" x2="28" y2="8"  stroke="#E67E22" stroke-width="1.8" stroke-linecap="round" transform="rotate(180 28 28)"/>
-    <line x1="28" y1="28" x2="28" y2="8"  stroke="#E67E22" stroke-width="1.8" stroke-linecap="round" transform="rotate(210 28 28)"/>
-    <line x1="28" y1="28" x2="28" y2="8"  stroke="#E67E22" stroke-width="1.8" stroke-linecap="round" transform="rotate(240 28 28)"/>
-    <line x1="28" y1="28" x2="28" y2="8"  stroke="#E67E22" stroke-width="1.8" stroke-linecap="round" transform="rotate(270 28 28)"/>
-    <line x1="28" y1="28" x2="28" y2="8"  stroke="#E67E22" stroke-width="1.8" stroke-linecap="round" transform="rotate(300 28 28)"/>
-    <line x1="28" y1="28" x2="28" y2="8"  stroke="#E67E22" stroke-width="1.8" stroke-linecap="round" transform="rotate(330 28 28)"/>
-    <circle cx="28" cy="10" r="3.2" fill="#F39C12"/>
-    <circle cx="28" cy="10" r="3.2" fill="#F39C12" transform="rotate(30 28 28)"/>
-    <circle cx="28" cy="10" r="3.2" fill="#F39C12" transform="rotate(60 28 28)"/>
-    <circle cx="28" cy="10" r="3.2" fill="#F39C12" transform="rotate(90 28 28)"/>
-    <circle cx="28" cy="10" r="3.2" fill="#F39C12" transform="rotate(120 28 28)"/>
-    <circle cx="28" cy="10" r="3.2" fill="#F39C12" transform="rotate(150 28 28)"/>
-    <circle cx="28" cy="10" r="3.2" fill="#F39C12" transform="rotate(180 28 28)"/>
-    <circle cx="28" cy="10" r="3.2" fill="#F39C12" transform="rotate(210 28 28)"/>
-    <circle cx="28" cy="10" r="3.2" fill="#F39C12" transform="rotate(240 28 28)"/>
-    <circle cx="28" cy="10" r="3.2" fill="#F39C12" transform="rotate(270 28 28)"/>
-    <circle cx="28" cy="10" r="3.2" fill="#F39C12" transform="rotate(300 28 28)"/>
-    <circle cx="28" cy="10" r="3.2" fill="#F39C12" transform="rotate(330 28 28)"/>
-    <circle cx="28" cy="28" r="5.5" fill="#E67E22"/>
-    <circle cx="28" cy="28" r="3"   fill="#D35400"/>
+    <rect x="2" y="2" width="52" height="52" rx="12" fill="#FFF3E0"/>
+    <line x1="28" y1="28" x2="28" y2="6"  stroke="#F39C12" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="28" y1="28" x2="28" y2="6"  stroke="#F39C12" stroke-width="2.5" stroke-linecap="round" transform="rotate(30 28 28)"/>
+    <line x1="28" y1="28" x2="28" y2="6"  stroke="#F39C12" stroke-width="2.5" stroke-linecap="round" transform="rotate(60 28 28)"/>
+    <line x1="28" y1="28" x2="28" y2="6"  stroke="#F39C12" stroke-width="2.5" stroke-linecap="round" transform="rotate(90 28 28)"/>
+    <line x1="28" y1="28" x2="28" y2="6"  stroke="#F39C12" stroke-width="2.5" stroke-linecap="round" transform="rotate(120 28 28)"/>
+    <line x1="28" y1="28" x2="28" y2="6"  stroke="#F39C12" stroke-width="2.5" stroke-linecap="round" transform="rotate(150 28 28)"/>
+    <line x1="28" y1="28" x2="28" y2="6"  stroke="#F39C12" stroke-width="2.5" stroke-linecap="round" transform="rotate(180 28 28)"/>
+    <line x1="28" y1="28" x2="28" y2="6"  stroke="#F39C12" stroke-width="2.5" stroke-linecap="round" transform="rotate(210 28 28)"/>
+    <line x1="28" y1="28" x2="28" y2="6"  stroke="#F39C12" stroke-width="2.5" stroke-linecap="round" transform="rotate(240 28 28)"/>
+    <line x1="28" y1="28" x2="28" y2="6"  stroke="#F39C12" stroke-width="2.5" stroke-linecap="round" transform="rotate(270 28 28)"/>
+    <line x1="28" y1="28" x2="28" y2="6"  stroke="#F39C12" stroke-width="2.5" stroke-linecap="round" transform="rotate(300 28 28)"/>
+    <line x1="28" y1="28" x2="28" y2="6"  stroke="#F39C12" stroke-width="2.5" stroke-linecap="round" transform="rotate(330 28 28)"/>
+    <circle cx="28" cy="6"  r="4.5" fill="#FDD835"/>
+    <circle cx="28" cy="6"  r="4.5" fill="#FDD835" transform="rotate(30 28 28)"/>
+    <circle cx="28" cy="6"  r="4.5" fill="#FDD835" transform="rotate(60 28 28)"/>
+    <circle cx="28" cy="6"  r="4.5" fill="#FDD835" transform="rotate(90 28 28)"/>
+    <circle cx="28" cy="6"  r="4.5" fill="#FDD835" transform="rotate(120 28 28)"/>
+    <circle cx="28" cy="6"  r="4.5" fill="#FDD835" transform="rotate(150 28 28)"/>
+    <circle cx="28" cy="6"  r="4.5" fill="#FDD835" transform="rotate(180 28 28)"/>
+    <circle cx="28" cy="6"  r="4.5" fill="#FDD835" transform="rotate(210 28 28)"/>
+    <circle cx="28" cy="6"  r="4.5" fill="#FDD835" transform="rotate(240 28 28)"/>
+    <circle cx="28" cy="6"  r="4.5" fill="#FDD835" transform="rotate(270 28 28)"/>
+    <circle cx="28" cy="6"  r="4.5" fill="#FDD835" transform="rotate(300 28 28)"/>
+    <circle cx="28" cy="6"  r="4.5" fill="#FDD835" transform="rotate(330 28 28)"/>
+    <circle cx="28" cy="28" r="8"  fill="#E67E22"/>
+    <circle cx="28" cy="28" r="4.5" fill="#D35400"/>
   </svg>`,
 ];
 
