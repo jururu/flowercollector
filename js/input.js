@@ -83,12 +83,13 @@ class InputHandler {
     if (!hit) { this._clearSelection(); return; }
 
     this._drag = {
-      pieceEl: hit.piece.element,
-      row:     hit.row,
-      col:     hit.col,
-      startX:  e.clientX,
-      startY:  e.clientY,
-      moved:   false,
+      pieceEl:   hit.piece.element,
+      row:       hit.row,
+      col:       hit.col,
+      startX:    e.clientX,
+      startY:    e.clientY,
+      moved:     false,
+      lockedDir: null,   // direction locked on first threshold cross
     };
   }
 
@@ -103,14 +104,23 @@ class InputHandler {
     const dist = Math.hypot(dx, dy);
 
     if (!this._drag.moved && dist >= this.DRAG_THRESHOLD) {
-      this._drag.moved = true;
+      this._drag.moved     = true;
+      this._drag.lockedDir = this._getDirection(dx, dy); // lock axis at threshold
       this._clearSelection();
       this._drag.pieceEl.classList.add('dragging');
     }
 
     if (this._drag.moved) {
-      // Visual: translate the piece element
-      this._drag.pieceEl.style.transform = `translate(${dx}px, ${dy}px)`;
+      // Clamp visual translation to one cell in the locked direction only
+      const cs = this.board._cellSize;
+      let vx = 0, vy = 0;
+      switch (this._drag.lockedDir) {
+        case 'right': vx = Math.max(0, Math.min(dx,  cs)); break;
+        case 'left':  vx = Math.min(0, Math.max(dx, -cs)); break;
+        case 'down':  vy = Math.max(0, Math.min(dy,  cs)); break;
+        case 'up':    vy = Math.min(0, Math.max(dy, -cs)); break;
+      }
+      this._drag.pieceEl.style.transform = `translate(${vx}px, ${vy}px)`;
     }
   }
 
