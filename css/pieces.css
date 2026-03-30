@@ -52,10 +52,10 @@
 }
 
 /* ===== Flower type colors (used for particles etc.) ===== */
-.flower-0 { --piece-color: #E74C3C; } /* Tulip    */
-.flower-1 { --piece-color: #F1C40F; } /* Sunflower*/
-.flower-2 { --piece-color: #E91E8F; } /* Rose     */
-.flower-3 { --piece-color: #9B59B6; } /* Violet   */
-.flower-4 { --piece-color: #27AE60; } /* Clover   */
-.flower-5 { --piece-color: #3498DB; } /* MornGlory*/
-.flower-6 { --piece-color: #E67E22; } /* Dandelion*/
+.flower-0 { --piece-color: #F44336; } /* Tulip     */
+.flower-1 { --piece-color: #FDD835; } /* Sunflower */
+.flower-2 { --piece-color: #E91E63; } /* Rose      */
+.flower-3 { --piece-color: #7B1FA2; } /* Violet    */
+.flower-4 { --piece-color: #43A047; } /* Clover    */
+.flower-5 { --piece-color: #1E88E5; } /* MornGlory */
+.flower-6 { --piece-color: #FF7043; } /* Dandelion */
