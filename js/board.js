@@ -24,23 +24,23 @@ const FLOWER_SVGS = [
   /* 0 チューリップ — 赤 #F44336 */
   `<svg viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
     <rect x="1" y="1" width="54" height="54" rx="12" fill="#F44336"/>
-    <path d="M21 13 C16 7 8 8 7 16 C6 24 13 28 19 28 C17 21 18 15 21 13Z" fill="rgba(255,255,255,0.88)"/>
-    <path d="M35 13 C40 7 48 8 49 16 C50 24 43 28 37 28 C39 21 38 15 35 13Z" fill="rgba(255,255,255,0.88)"/>
-    <path d="M28 50 C19 50 10 43 10 33 C10 21 17 13 22 11 L28 8 L34 11 C39 13 46 21 46 33 C46 43 37 50 28 50Z" fill="rgba(255,255,255,0.88)"/>
-    <path d="M22 19 Q20 31 22 43" stroke="#F44336" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.3"/>
+    <path d="M21 13 C16 7 8 8 7 16 C6 24 13 28 19 28 C17 21 18 15 21 13Z" fill="white"/>
+    <path d="M35 13 C40 7 48 8 49 16 C50 24 43 28 37 28 C39 21 38 15 35 13Z" fill="white"/>
+    <path d="M28 50 C19 50 10 43 10 33 C10 21 17 13 22 11 L28 8 L34 11 C39 13 46 21 46 33 C46 43 37 50 28 50Z" fill="white"/>
+    <path d="M22 19 Q20 31 22 43" stroke="#F44336" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.5"/>
   </svg>`,
 
   /* 1 ひまわり — 黄 #FDD835 */
   `<svg viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
     <rect x="1" y="1" width="54" height="54" rx="12" fill="#FDD835"/>
-    <ellipse cx="28" cy="9"  rx="6" ry="10" fill="#FFA000"/>
-    <ellipse cx="28" cy="9"  rx="6" ry="10" fill="#FFA000" transform="rotate(45 28 28)"/>
-    <ellipse cx="28" cy="9"  rx="6" ry="10" fill="#FFA000" transform="rotate(90 28 28)"/>
-    <ellipse cx="28" cy="9"  rx="6" ry="10" fill="#FFA000" transform="rotate(135 28 28)"/>
-    <ellipse cx="28" cy="9"  rx="6" ry="10" fill="#FFA000" transform="rotate(180 28 28)"/>
-    <ellipse cx="28" cy="9"  rx="6" ry="10" fill="#FFA000" transform="rotate(225 28 28)"/>
-    <ellipse cx="28" cy="9"  rx="6" ry="10" fill="#FFA000" transform="rotate(270 28 28)"/>
-    <ellipse cx="28" cy="9"  rx="6" ry="10" fill="#FFA000" transform="rotate(315 28 28)"/>
+    <ellipse cx="28" cy="9"  rx="6" ry="10" fill="#E65100"/>
+    <ellipse cx="28" cy="9"  rx="6" ry="10" fill="#E65100" transform="rotate(45 28 28)"/>
+    <ellipse cx="28" cy="9"  rx="6" ry="10" fill="#E65100" transform="rotate(90 28 28)"/>
+    <ellipse cx="28" cy="9"  rx="6" ry="10" fill="#E65100" transform="rotate(135 28 28)"/>
+    <ellipse cx="28" cy="9"  rx="6" ry="10" fill="#E65100" transform="rotate(180 28 28)"/>
+    <ellipse cx="28" cy="9"  rx="6" ry="10" fill="#E65100" transform="rotate(225 28 28)"/>
+    <ellipse cx="28" cy="9"  rx="6" ry="10" fill="#E65100" transform="rotate(270 28 28)"/>
+    <ellipse cx="28" cy="9"  rx="6" ry="10" fill="#E65100" transform="rotate(315 28 28)"/>
     <circle cx="28" cy="28" r="13" fill="#3E2723"/>
     <circle cx="28" cy="28" r="9"  fill="#5D4037"/>
     <circle cx="24" cy="24" r="2"  fill="#8D6E63"/>
@@ -54,32 +54,32 @@ const FLOWER_SVGS = [
     <circle cx="32" cy="32" r="2"  fill="#8D6E63"/>
   </svg>`,
 
-  /* 2 バラ — 白 #FFFFFF (白バラ、ピンク花弁) */
+  /* 2 バラ — ピンク #E91E63 */
   `<svg viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
-    <rect x="1" y="1" width="54" height="54" rx="12" fill="#FFFFFF" stroke="#DDDDDD" stroke-width="1.5"/>
-    <circle cx="28" cy="9"  r="10" fill="#F48FB1"/>
-    <circle cx="28" cy="9"  r="10" fill="#F48FB1" transform="rotate(72 28 28)"/>
-    <circle cx="28" cy="9"  r="10" fill="#F48FB1" transform="rotate(144 28 28)"/>
-    <circle cx="28" cy="9"  r="10" fill="#F48FB1" transform="rotate(216 28 28)"/>
-    <circle cx="28" cy="9"  r="10" fill="#F48FB1" transform="rotate(288 28 28)"/>
-    <circle cx="28" cy="28" r="14" fill="#EC407A"/>
-    <circle cx="28" cy="15" r="7"  fill="#F48FB1" transform="rotate(36 28 28)"/>
-    <circle cx="28" cy="15" r="7"  fill="#F48FB1" transform="rotate(108 28 28)"/>
-    <circle cx="28" cy="15" r="7"  fill="#F48FB1" transform="rotate(180 28 28)"/>
-    <circle cx="28" cy="15" r="7"  fill="#F48FB1" transform="rotate(252 28 28)"/>
-    <circle cx="28" cy="15" r="7"  fill="#F48FB1" transform="rotate(324 28 28)"/>
-    <circle cx="28" cy="28" r="8"  fill="#E91E63"/>
+    <rect x="1" y="1" width="54" height="54" rx="12" fill="#E91E63"/>
+    <circle cx="28" cy="9"  r="10" fill="white"/>
+    <circle cx="28" cy="9"  r="10" fill="white" transform="rotate(72 28 28)"/>
+    <circle cx="28" cy="9"  r="10" fill="white" transform="rotate(144 28 28)"/>
+    <circle cx="28" cy="9"  r="10" fill="white" transform="rotate(216 28 28)"/>
+    <circle cx="28" cy="9"  r="10" fill="white" transform="rotate(288 28 28)"/>
+    <circle cx="28" cy="28" r="14" fill="#E91E63"/>
+    <circle cx="28" cy="15" r="7"  fill="white" transform="rotate(36 28 28)"/>
+    <circle cx="28" cy="15" r="7"  fill="white" transform="rotate(108 28 28)"/>
+    <circle cx="28" cy="15" r="7"  fill="white" transform="rotate(180 28 28)"/>
+    <circle cx="28" cy="15" r="7"  fill="white" transform="rotate(252 28 28)"/>
+    <circle cx="28" cy="15" r="7"  fill="white" transform="rotate(324 28 28)"/>
+    <circle cx="28" cy="28" r="8"  fill="#AD1457"/>
     <circle cx="28" cy="28" r="4"  fill="#880E4F"/>
   </svg>`,
 
   /* 3 すみれ — 紫 #7B1FA2 */
   `<svg viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
     <rect x="1" y="1" width="54" height="54" rx="12" fill="#7B1FA2"/>
-    <circle cx="28" cy="9"  r="12" fill="rgba(255,255,255,0.88)"/>
-    <circle cx="28" cy="9"  r="12" fill="rgba(255,255,255,0.88)" transform="rotate(72 28 28)"/>
-    <circle cx="28" cy="9"  r="12" fill="rgba(255,255,255,0.88)" transform="rotate(144 28 28)"/>
-    <circle cx="28" cy="9"  r="12" fill="rgba(255,255,255,0.88)" transform="rotate(216 28 28)"/>
-    <circle cx="28" cy="9"  r="12" fill="rgba(255,255,255,0.88)" transform="rotate(288 28 28)"/>
+    <circle cx="28" cy="9"  r="12" fill="white"/>
+    <circle cx="28" cy="9"  r="12" fill="white" transform="rotate(72 28 28)"/>
+    <circle cx="28" cy="9"  r="12" fill="white" transform="rotate(144 28 28)"/>
+    <circle cx="28" cy="9"  r="12" fill="white" transform="rotate(216 28 28)"/>
+    <circle cx="28" cy="9"  r="12" fill="white" transform="rotate(288 28 28)"/>
     <circle cx="28" cy="28" r="10" fill="#7B1FA2"/>
     <circle cx="28" cy="28" r="8"  fill="#FFD600"/>
     <circle cx="28" cy="28" r="4.5" fill="#FF6F00"/>
@@ -88,26 +88,25 @@ const FLOWER_SVGS = [
   /* 4 クローバー — 緑 #43A047 */
   `<svg viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
     <rect x="1" y="1" width="54" height="54" rx="12" fill="#43A047"/>
-    <circle cx="28" cy="14" r="14" fill="rgba(255,255,255,0.85)"/>
-    <circle cx="42" cy="28" r="14" fill="rgba(255,255,255,0.85)"/>
-    <circle cx="28" cy="42" r="14" fill="rgba(255,255,255,0.85)"/>
-    <circle cx="14" cy="28" r="14" fill="rgba(255,255,255,0.85)"/>
+    <circle cx="28" cy="14" r="14" fill="white"/>
+    <circle cx="42" cy="28" r="14" fill="white"/>
+    <circle cx="28" cy="42" r="14" fill="white"/>
+    <circle cx="14" cy="28" r="14" fill="white"/>
     <circle cx="28" cy="28" r="10" fill="#43A047"/>
-    <line x1="28" y1="18" x2="28" y2="28" stroke="rgba(255,255,255,0.6)" stroke-width="3" stroke-linecap="round"/>
-    <line x1="28" y1="18" x2="28" y2="28" stroke="rgba(255,255,255,0.6)" stroke-width="3" stroke-linecap="round" transform="rotate(90 28 28)"/>
-    <line x1="28" y1="18" x2="28" y2="28" stroke="rgba(255,255,255,0.6)" stroke-width="3" stroke-linecap="round" transform="rotate(180 28 28)"/>
-    <line x1="28" y1="18" x2="28" y2="28" stroke="rgba(255,255,255,0.6)" stroke-width="3" stroke-linecap="round" transform="rotate(270 28 28)"/>
+    <line x1="28" y1="18" x2="28" y2="28" stroke="white" stroke-width="3" stroke-linecap="round"/>
+    <line x1="28" y1="18" x2="28" y2="28" stroke="white" stroke-width="3" stroke-linecap="round" transform="rotate(90 28 28)"/>
+    <line x1="28" y1="18" x2="28" y2="28" stroke="white" stroke-width="3" stroke-linecap="round" transform="rotate(180 28 28)"/>
+    <line x1="28" y1="18" x2="28" y2="28" stroke="white" stroke-width="3" stroke-linecap="round" transform="rotate(270 28 28)"/>
   </svg>`,
 
   /* 5 あさがお — 水色 #00BCD4 */
   `<svg viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
     <rect x="1" y="1" width="54" height="54" rx="12" fill="#00BCD4"/>
-    <circle cx="28" cy="28" r="23" fill="rgba(255,255,255,0.12)"/>
-    <line x1="28" y1="28" x2="28" y2="5"  stroke="rgba(255,255,255,0.55)" stroke-width="3.5" stroke-linecap="round"/>
-    <line x1="28" y1="28" x2="28" y2="5"  stroke="rgba(255,255,255,0.55)" stroke-width="3.5" stroke-linecap="round" transform="rotate(72 28 28)"/>
-    <line x1="28" y1="28" x2="28" y2="5"  stroke="rgba(255,255,255,0.55)" stroke-width="3.5" stroke-linecap="round" transform="rotate(144 28 28)"/>
-    <line x1="28" y1="28" x2="28" y2="5"  stroke="rgba(255,255,255,0.55)" stroke-width="3.5" stroke-linecap="round" transform="rotate(216 28 28)"/>
-    <line x1="28" y1="28" x2="28" y2="5"  stroke="rgba(255,255,255,0.55)" stroke-width="3.5" stroke-linecap="round" transform="rotate(288 28 28)"/>
+    <line x1="28" y1="28" x2="28" y2="5"  stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+    <line x1="28" y1="28" x2="28" y2="5"  stroke="white" stroke-width="3.5" stroke-linecap="round" transform="rotate(72 28 28)"/>
+    <line x1="28" y1="28" x2="28" y2="5"  stroke="white" stroke-width="3.5" stroke-linecap="round" transform="rotate(144 28 28)"/>
+    <line x1="28" y1="28" x2="28" y2="5"  stroke="white" stroke-width="3.5" stroke-linecap="round" transform="rotate(216 28 28)"/>
+    <line x1="28" y1="28" x2="28" y2="5"  stroke="white" stroke-width="3.5" stroke-linecap="round" transform="rotate(288 28 28)"/>
     <circle cx="28" cy="28" r="12" fill="white"/>
     <circle cx="28" cy="28" r="8"  fill="#80DEEA"/>
     <circle cx="28" cy="28" r="4"  fill="#00BCD4"/>
@@ -116,31 +115,31 @@ const FLOWER_SVGS = [
   /* 6 たんぽぽ — オレンジ #FF7043 */
   `<svg viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
     <rect x="1" y="1" width="54" height="54" rx="12" fill="#FF7043"/>
-    <line x1="28" y1="28" x2="28" y2="6"  stroke="rgba(255,255,255,0.88)" stroke-width="2.5" stroke-linecap="round"/>
-    <line x1="28" y1="28" x2="28" y2="6"  stroke="rgba(255,255,255,0.88)" stroke-width="2.5" stroke-linecap="round" transform="rotate(30 28 28)"/>
-    <line x1="28" y1="28" x2="28" y2="6"  stroke="rgba(255,255,255,0.88)" stroke-width="2.5" stroke-linecap="round" transform="rotate(60 28 28)"/>
-    <line x1="28" y1="28" x2="28" y2="6"  stroke="rgba(255,255,255,0.88)" stroke-width="2.5" stroke-linecap="round" transform="rotate(90 28 28)"/>
-    <line x1="28" y1="28" x2="28" y2="6"  stroke="rgba(255,255,255,0.88)" stroke-width="2.5" stroke-linecap="round" transform="rotate(120 28 28)"/>
-    <line x1="28" y1="28" x2="28" y2="6"  stroke="rgba(255,255,255,0.88)" stroke-width="2.5" stroke-linecap="round" transform="rotate(150 28 28)"/>
-    <line x1="28" y1="28" x2="28" y2="6"  stroke="rgba(255,255,255,0.88)" stroke-width="2.5" stroke-linecap="round" transform="rotate(180 28 28)"/>
-    <line x1="28" y1="28" x2="28" y2="6"  stroke="rgba(255,255,255,0.88)" stroke-width="2.5" stroke-linecap="round" transform="rotate(210 28 28)"/>
-    <line x1="28" y1="28" x2="28" y2="6"  stroke="rgba(255,255,255,0.88)" stroke-width="2.5" stroke-linecap="round" transform="rotate(240 28 28)"/>
-    <line x1="28" y1="28" x2="28" y2="6"  stroke="rgba(255,255,255,0.88)" stroke-width="2.5" stroke-linecap="round" transform="rotate(270 28 28)"/>
-    <line x1="28" y1="28" x2="28" y2="6"  stroke="rgba(255,255,255,0.88)" stroke-width="2.5" stroke-linecap="round" transform="rotate(300 28 28)"/>
-    <line x1="28" y1="28" x2="28" y2="6"  stroke="rgba(255,255,255,0.88)" stroke-width="2.5" stroke-linecap="round" transform="rotate(330 28 28)"/>
-    <circle cx="28" cy="6"  r="4.5" fill="rgba(255,255,255,0.95)"/>
-    <circle cx="28" cy="6"  r="4.5" fill="rgba(255,255,255,0.95)" transform="rotate(30 28 28)"/>
-    <circle cx="28" cy="6"  r="4.5" fill="rgba(255,255,255,0.95)" transform="rotate(60 28 28)"/>
-    <circle cx="28" cy="6"  r="4.5" fill="rgba(255,255,255,0.95)" transform="rotate(90 28 28)"/>
-    <circle cx="28" cy="6"  r="4.5" fill="rgba(255,255,255,0.95)" transform="rotate(120 28 28)"/>
-    <circle cx="28" cy="6"  r="4.5" fill="rgba(255,255,255,0.95)" transform="rotate(150 28 28)"/>
-    <circle cx="28" cy="6"  r="4.5" fill="rgba(255,255,255,0.95)" transform="rotate(180 28 28)"/>
-    <circle cx="28" cy="6"  r="4.5" fill="rgba(255,255,255,0.95)" transform="rotate(210 28 28)"/>
-    <circle cx="28" cy="6"  r="4.5" fill="rgba(255,255,255,0.95)" transform="rotate(240 28 28)"/>
-    <circle cx="28" cy="6"  r="4.5" fill="rgba(255,255,255,0.95)" transform="rotate(270 28 28)"/>
-    <circle cx="28" cy="6"  r="4.5" fill="rgba(255,255,255,0.95)" transform="rotate(300 28 28)"/>
-    <circle cx="28" cy="6"  r="4.5" fill="rgba(255,255,255,0.95)" transform="rotate(330 28 28)"/>
-    <circle cx="28" cy="28" r="8"  fill="rgba(255,255,255,0.9)"/>
+    <line x1="28" y1="28" x2="28" y2="6"  stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="28" y1="28" x2="28" y2="6"  stroke="white" stroke-width="2.5" stroke-linecap="round" transform="rotate(30 28 28)"/>
+    <line x1="28" y1="28" x2="28" y2="6"  stroke="white" stroke-width="2.5" stroke-linecap="round" transform="rotate(60 28 28)"/>
+    <line x1="28" y1="28" x2="28" y2="6"  stroke="white" stroke-width="2.5" stroke-linecap="round" transform="rotate(90 28 28)"/>
+    <line x1="28" y1="28" x2="28" y2="6"  stroke="white" stroke-width="2.5" stroke-linecap="round" transform="rotate(120 28 28)"/>
+    <line x1="28" y1="28" x2="28" y2="6"  stroke="white" stroke-width="2.5" stroke-linecap="round" transform="rotate(150 28 28)"/>
+    <line x1="28" y1="28" x2="28" y2="6"  stroke="white" stroke-width="2.5" stroke-linecap="round" transform="rotate(180 28 28)"/>
+    <line x1="28" y1="28" x2="28" y2="6"  stroke="white" stroke-width="2.5" stroke-linecap="round" transform="rotate(210 28 28)"/>
+    <line x1="28" y1="28" x2="28" y2="6"  stroke="white" stroke-width="2.5" stroke-linecap="round" transform="rotate(240 28 28)"/>
+    <line x1="28" y1="28" x2="28" y2="6"  stroke="white" stroke-width="2.5" stroke-linecap="round" transform="rotate(270 28 28)"/>
+    <line x1="28" y1="28" x2="28" y2="6"  stroke="white" stroke-width="2.5" stroke-linecap="round" transform="rotate(300 28 28)"/>
+    <line x1="28" y1="28" x2="28" y2="6"  stroke="white" stroke-width="2.5" stroke-linecap="round" transform="rotate(330 28 28)"/>
+    <circle cx="28" cy="6"  r="4.5" fill="white"/>
+    <circle cx="28" cy="6"  r="4.5" fill="white" transform="rotate(30 28 28)"/>
+    <circle cx="28" cy="6"  r="4.5" fill="white" transform="rotate(60 28 28)"/>
+    <circle cx="28" cy="6"  r="4.5" fill="white" transform="rotate(90 28 28)"/>
+    <circle cx="28" cy="6"  r="4.5" fill="white" transform="rotate(120 28 28)"/>
+    <circle cx="28" cy="6"  r="4.5" fill="white" transform="rotate(150 28 28)"/>
+    <circle cx="28" cy="6"  r="4.5" fill="white" transform="rotate(180 28 28)"/>
+    <circle cx="28" cy="6"  r="4.5" fill="white" transform="rotate(210 28 28)"/>
+    <circle cx="28" cy="6"  r="4.5" fill="white" transform="rotate(240 28 28)"/>
+    <circle cx="28" cy="6"  r="4.5" fill="white" transform="rotate(270 28 28)"/>
+    <circle cx="28" cy="6"  r="4.5" fill="white" transform="rotate(300 28 28)"/>
+    <circle cx="28" cy="6"  r="4.5" fill="white" transform="rotate(330 28 28)"/>
+    <circle cx="28" cy="28" r="8"  fill="white"/>
     <circle cx="28" cy="28" r="4"  fill="#FF7043"/>
     <circle cx="28" cy="28" r="2"  fill="#BF360C"/>
   </svg>`,
